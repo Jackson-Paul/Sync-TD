@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:1fa9fa2b-3b2d-41ac-bfee-72fda25817ce">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:64556a27-a634-4758-bf81-e930d0db730e">
   <metadata>
-    <timestamp>2025-05-26T05:54:12.429Z</timestamp>
+    <timestamp>2025-05-26T07:12:48.934Z</timestamp>
     <lifecycles>
       <lifecycle>
         <phase>build</phase>
@@ -170,28 +170,54 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git">
-      <group>@fortawesome</group>
-      <name>vue-fontawesome</name>
-      <version>2.0.10</version>
-      <description>Official Vue 2 component for Font Awesome</description>
+    <component type="library" bom-ref="pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git">
+      <author>Evan You</author>
+      <name>vue-router</name>
+      <version>3.6.5</version>
+      <description>Official router for Vue.js 2</description>
       <licenses>
         <license>
           <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git</purl>
+      <purl>pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+https://github.com/FortAwesome/vue-fontawesome.git</url>
+          <url>git+https://github.com/vuejs/vue-router.git</url>
           <comment>as detected from PackageJson property "repository.url"</comment>
         </reference>
         <reference type="website">
-          <url>https://github.com/FortAwesome/vue-fontawesome</url>
+          <url>https://github.com/vuejs/vue-router#readme</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
-          <url>https://github.com/FortAwesome/vue-fontawesome/issues</url>
+          <url>https://github.com/vuejs/vue-router/issues</url>
+          <comment>as detected from PackageJson property "bugs.url"</comment>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git">
+      <author>kazuya kawaguchi</author>
+      <name>vue-i18n</name>
+      <version>8.28.2</version>
+      <description>Internationalization plugin for Vue.js</description>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>git+https://github.com/kazupon/vue-i18n.git</url>
+          <comment>as detected from PackageJson property "repository.url"</comment>
+        </reference>
+        <reference type="website">
+          <url>https://github.com/kazupon/vue-i18n#readme</url>
+          <comment>as detected from PackageJson property "homepage"</comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/kazupon/vue-i18n/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -219,6 +245,32 @@
         </reference>
         <reference type="issue-tracker">
           <url>https://github.com/FortAwesome/Font-Awesome/issues</url>
+          <comment>as detected from PackageJson property "bugs.url"</comment>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git">
+      <group>@fortawesome</group>
+      <name>vue-fontawesome</name>
+      <version>2.0.10</version>
+      <description>Official Vue 2 component for Font Awesome</description>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>git+https://github.com/FortAwesome/vue-fontawesome.git</url>
+          <comment>as detected from PackageJson property "repository.url"</comment>
+        </reference>
+        <reference type="website">
+          <url>https://github.com/FortAwesome/vue-fontawesome</url>
+          <comment>as detected from PackageJson property "homepage"</comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/FortAwesome/vue-fontawesome/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -269,58 +321,6 @@
         </reference>
         <reference type="issue-tracker">
           <url>https://github.com/FortAwesome/Font-Awesome/issues</url>
-          <comment>as detected from PackageJson property "bugs.url"</comment>
-        </reference>
-      </externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git">
-      <author>kazuya kawaguchi</author>
-      <name>vue-i18n</name>
-      <version>8.28.2</version>
-      <description>Internationalization plugin for Vue.js</description>
-      <licenses>
-        <license>
-          <id>MIT</id>
-        </license>
-      </licenses>
-      <purl>pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git</purl>
-      <externalReferences>
-        <reference type="vcs">
-          <url>git+https://github.com/kazupon/vue-i18n.git</url>
-          <comment>as detected from PackageJson property "repository.url"</comment>
-        </reference>
-        <reference type="website">
-          <url>https://github.com/kazupon/vue-i18n#readme</url>
-          <comment>as detected from PackageJson property "homepage"</comment>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/kazupon/vue-i18n/issues</url>
-          <comment>as detected from PackageJson property "bugs.url"</comment>
-        </reference>
-      </externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git">
-      <author>Evan You</author>
-      <name>vue-router</name>
-      <version>3.6.5</version>
-      <description>Official router for Vue.js 2</description>
-      <licenses>
-        <license>
-          <id>MIT</id>
-        </license>
-      </licenses>
-      <purl>pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git</purl>
-      <externalReferences>
-        <reference type="vcs">
-          <url>git+https://github.com/vuejs/vue-router.git</url>
-          <comment>as detected from PackageJson property "repository.url"</comment>
-        </reference>
-        <reference type="website">
-          <url>https://github.com/vuejs/vue-router#readme</url>
-          <comment>as detected from PackageJson property "homepage"</comment>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/vuejs/vue-router/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -428,31 +428,6 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/portal-vue@2.1.7?vcs_url=git%2Bhttps%3A//github.com/LinusBorg/portal-vue.git">
-      <author>Thorsten Lünborg</author>
-      <name>portal-vue</name>
-      <version>2.1.7</version>
-      <licenses>
-        <license>
-          <id>MIT</id>
-        </license>
-      </licenses>
-      <purl>pkg:npm/portal-vue@2.1.7?vcs_url=git%2Bhttps%3A//github.com/LinusBorg/portal-vue.git</purl>
-      <externalReferences>
-        <reference type="vcs">
-          <url>git+https://github.com/LinusBorg/portal-vue.git</url>
-          <comment>as detected from PackageJson property "repository.url"</comment>
-        </reference>
-        <reference type="website">
-          <url>https://github.com/LinusBorg/portal-vue#readme</url>
-          <comment>as detected from PackageJson property "homepage"</comment>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/LinusBorg/portal-vue/issues</url>
-          <comment>as detected from PackageJson property "bugs.url"</comment>
-        </reference>
-      </externalReferences>
-    </component>
     <component type="library" bom-ref="pkg:npm/deepmerge@4.3.1?vcs_url=git%3A//github.com/TehShrike/deepmerge.git">
       <name>deepmerge</name>
       <version>4.3.1</version>
@@ -500,6 +475,31 @@
         </reference>
         <reference type="issue-tracker">
           <url>https://github.com/WebReflection/flatted/issues</url>
+          <comment>as detected from PackageJson property "bugs.url"</comment>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:npm/portal-vue@2.1.7?vcs_url=git%2Bhttps%3A//github.com/LinusBorg/portal-vue.git">
+      <author>Thorsten Lünborg</author>
+      <name>portal-vue</name>
+      <version>2.1.7</version>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:npm/portal-vue@2.1.7?vcs_url=git%2Bhttps%3A//github.com/LinusBorg/portal-vue.git</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>git+https://github.com/LinusBorg/portal-vue.git</url>
+          <comment>as detected from PackageJson property "repository.url"</comment>
+        </reference>
+        <reference type="website">
+          <url>https://github.com/LinusBorg/portal-vue#readme</url>
+          <comment>as detected from PackageJson property "homepage"</comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/LinusBorg/portal-vue/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -818,25 +818,25 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
+    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
       <author>bubkoo</author>
       <group>@antv</group>
-      <name>x6-plugin-history</name>
-      <version>2.2.4</version>
-      <description>history plugin for X6</description>
+      <name>x6-plugin-export</name>
+      <version>2.1.6</version>
+      <description>export plugin for X6.</description>
       <licenses>
         <license>
           <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history</purl>
+      <purl>pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-history</url>
+          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-export</url>
           <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
         </reference>
         <reference type="website">
-          <url>https://x6.antv.antgroup.com/tutorial/plugins/history</url>
+          <url>https://x6.antv.antgroup.com/tutorial/plugins/export</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
@@ -872,25 +872,25 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
+    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
       <author>bubkoo</author>
       <group>@antv</group>
-      <name>x6-plugin-export</name>
-      <version>2.1.6</version>
-      <description>export plugin for X6.</description>
+      <name>x6-plugin-history</name>
+      <version>2.2.4</version>
+      <description>history plugin for X6</description>
       <licenses>
         <license>
           <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export</purl>
+      <purl>pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-export</url>
+          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-history</url>
           <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
         </reference>
         <reference type="website">
-          <url>https://x6.antv.antgroup.com/tutorial/plugins/export</url>
+          <url>https://x6.antv.antgroup.com/tutorial/plugins/history</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
@@ -1182,8 +1182,8 @@
       <dependency ref="pkg:npm/vuex-persist@3.1.3?vcs_url=git%2Bhttps%3A//github.com/championswimmer/vuex-persist.git"/>
       <dependency ref="pkg:npm/is-electron@2.2.2?vcs_url=git%2Bssh%3A//git%40github.com/cheton/is-electron.git"/>
       <dependency ref="pkg:npm/uuid@8.3.2?vcs_url=git%2Bhttps%3A//github.com/uuidjs/uuid.git"/>
-      <dependency ref="pkg:npm/axios@1.8.2?vcs_url=git%2Bhttps%3A//github.com/axios/axios.git"/>
       <dependency ref="pkg:npm/ajv@8.12.0?vcs_url=git%2Bhttps%3A//github.com/ajv-validator/ajv.git"/>
+      <dependency ref="pkg:npm/axios@1.8.2?vcs_url=git%2Bhttps%3A//github.com/axios/axios.git"/>
       <dependency ref="pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git"/>
       <dependency ref="pkg:npm/passive-events-support@1.1.0?vcs_url=git%2Bhttps%3A//github.com/ignasdamunskis/passive-events-support.git"/>
       <dependency ref="pkg:npm/%40antv/x6-plugin-stencil@2.1.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-stencil"/>
@@ -1205,14 +1205,14 @@
       <dependency ref="pkg:npm/vue@2.7.16?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue.git"/>
       <dependency ref="pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git"/>
     </dependency>
+    <dependency ref="pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"/>
+    <dependency ref="pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git"/>
+    <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git">
       <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     </dependency>
-    <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/%40fortawesome/free-brands-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/%40fortawesome/free-solid-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
-    <dependency ref="pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git"/>
-    <dependency ref="pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"/>
     <dependency ref="pkg:npm/bootstrap-vue@2.23.1?vcs_url=git%2Bhttps%3A//github.com/bootstrap-vue/bootstrap-vue.git">
       <dependency ref="pkg:npm/vue@2.7.16?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue.git"/>
       <dependency ref="pkg:npm/vue-functional-data-merge@3.1.0?vcs_url=git%2Bhttps%3A//github.com/alexsasharegan/vue-functional-data-merge.git"/>
@@ -1225,11 +1225,11 @@
       <dependency ref="pkg:npm/deepmerge@4.3.1?vcs_url=git%3A//github.com/TehShrike/deepmerge.git"/>
       <dependency ref="pkg:npm/flatted@3.3.1?vcs_url=git%2Bhttps%3A//github.com/WebReflection/flatted.git"/>
     </dependency>
+    <dependency ref="pkg:npm/deepmerge@4.3.1?vcs_url=git%3A//github.com/TehShrike/deepmerge.git"/>
+    <dependency ref="pkg:npm/flatted@3.3.1?vcs_url=git%2Bhttps%3A//github.com/WebReflection/flatted.git"/>
     <dependency ref="pkg:npm/portal-vue@2.1.7?vcs_url=git%2Bhttps%3A//github.com/LinusBorg/portal-vue.git">
       <dependency ref="pkg:npm/vue@2.7.16?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue.git"/>
     </dependency>
-    <dependency ref="pkg:npm/deepmerge@4.3.1?vcs_url=git%3A//github.com/TehShrike/deepmerge.git"/>
-    <dependency ref="pkg:npm/flatted@3.3.1?vcs_url=git%2Bhttps%3A//github.com/WebReflection/flatted.git"/>
     <dependency ref="pkg:npm/vue-functional-data-merge@3.1.0?vcs_url=git%2Bhttps%3A//github.com/alexsasharegan/vue-functional-data-merge.git"/>
     <dependency ref="pkg:npm/popper.js@1.16.1?vcs_url=git%2Bhttps%3A//github.com/FezVrasta/popper.js.git"/>
     <dependency ref="pkg:npm/axios@1.8.2?vcs_url=git%2Bhttps%3A//github.com/axios/axios.git"/>
@@ -1254,14 +1254,14 @@
     <dependency ref="pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
-    <dependency ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
+    <dependency ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
     <dependency ref="pkg:npm/%40antv/x6-plugin-keyboard@2.2.3?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-keyboard">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
       <dependency ref="pkg:npm/mousetrap@1.6.5?vcs_url=git%3A//github.com/ccampbell/mousetrap.git"/>
     </dependency>
-    <dependency ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
+    <dependency ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
     <dependency ref="pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller">
