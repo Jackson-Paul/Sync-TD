@@ -18,7 +18,6 @@
                     <th>{{ $t('threats.properties.status') }}</th>
                     <th>{{ $t('threats.properties.score') }}</th>
                     <th>{{ $t('threats.properties.description') }}</th>
-                     <th>{{ $t('threats.properties.ticketlink') }}</th>
                     <th>{{ $t('threats.properties.mitigation') }}</th>
                 </tr>
             </thead>
@@ -35,7 +34,6 @@
                     <td>{{ threat.status }}</td>
                     <td>{{ threat.score }}</td>
                     <td>{{ threat.description }}</td>
-                    <td><a :href="threat.ticketlink" target="_blank" rel="noopener">{{ threat.ticketlink }}</a></td>
                     <td>{{ threat.mitigation }}</td>
                 </tr>
             </tbody>

@@ -347,10 +347,6 @@ export const schema = {
                                                                 'description': 'The threat suggested by AI',
                                                                 'type': 'boolean'
                                                             },
-                                                            'TicketLink': {
-                                                                'description': 'Ticket Link',
-                                                                'type': 'string'
-                                                            },
                                                             'score': {
                                                                 'description': 'The custom score/risk for the threat',
                                                                 'type': 'string'
