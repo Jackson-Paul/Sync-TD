@@ -93,8 +93,7 @@ export default {
         mitigation: { type: String },
         modelType: { type: String },
         number: { type: Number },
-        isai: {type: Boolean},
-        ticketLink:{type:String}
+        isai: {type: Boolean}
     },
     methods: {
         threatSelected() {

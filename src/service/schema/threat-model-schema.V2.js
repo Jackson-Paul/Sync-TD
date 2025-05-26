@@ -335,10 +335,6 @@ export const schema = {
                                                         'description': 'The threat description',
                                                         'type': 'string'
                                                     },
-                                                    'TicketLink': {
-                                                                'description': 'Ticket Link',
-                                                                'type': 'string'
-                                                            },
                                                     'mitigation': {
                                                         'description': 'The threat mitigation',
                                                         'type': 'string'
