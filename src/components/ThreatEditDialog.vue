@@ -124,6 +124,21 @@
                 <b-form-row>
                     <b-col>
                         <b-form-group
+                            id="ticket-link"
+                            :label="$t('threats.properties.ticketlink')"
+                            label-for="ticketlink">
+                            <b-form-input
+                                id="ticketlink"
+                                v-model="threat.ticketlink"
+                            >
+                            </b-form-input>
+                        </b-form-group>
+                    </b-col>
+                </b-form-row>
+
+                <b-form-row>
+                    <b-col>
+                        <b-form-group
                             id="mitigation-group"
                             :label="$t('threats.properties.mitigation')"
                             label-for="mitigation">
@@ -226,7 +241,8 @@ export default {
     data() {
         return {
             threat: {
-                isai: null
+                isai: null,
+                ticketlink:""
             },
             modelTypes: [
                 'CIA',
@@ -276,6 +292,7 @@ export default {
                 threatRef.new = false;
                 threatRef.number = this.number;
                 threatRef.isai = this.threat.isai;
+                threatRef.ticketlink = this.threat.ticketlink;
                 threatRef.score = this.threat.score;
                 this.$store.dispatch(CELL_DATA_UPDATED, this.cellRef.data);
                 this.$store.dispatch(tmActions.modified);

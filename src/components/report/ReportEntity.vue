@@ -94,6 +94,7 @@ export default {
                     [this.$t('threats.properties.status')]: threat.status,
                     [this.$t('threats.properties.score')]: threat.score,
                     [this.$t('threats.properties.description')]: threat.description,
+                    [this.$t('threats.properties.ticketlink')]: threat.ticketlink,
                     [this.$t('threats.properties.mitigation')]: threat.mitigation
 
                 };

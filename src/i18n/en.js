@@ -356,7 +356,8 @@ const eng = {
             status: 'Status',
             title: 'Title',
             type: 'Type',
-            isai:'Suggested By AI'
+            isai:'Suggested By AI',
+            ticketlink:'Ticket Link'
         },
         status: {
             notApplicable: 'N/A',
