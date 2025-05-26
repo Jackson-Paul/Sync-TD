@@ -31,7 +31,7 @@ export const schema = {
                     'type': 'string'
                 }
             },
-            'required': [ 'title' ]
+            'required': ['title']
         },
         'detail': {
             'description': 'Threat model definition',
@@ -115,7 +115,7 @@ export const schema = {
                                                             'nullable': true
                                                         }
                                                     },
-                                                    'required': [ 'stroke', 'strokeWidth', 'strokeDasharray' ]
+                                                    'required': ['stroke', 'strokeWidth', 'strokeDasharray']
                                                 },
                                                 'line': {
                                                     'description': 'The component stroke attributes',
@@ -131,14 +131,14 @@ export const schema = {
                                                         },
                                                         'sourceMarker': {
                                                             'description': 'The line source marker',
-                                                            'type': [ 'object', 'string' ],
+                                                            'type': ['object', 'string'],
                                                             'properties': {
                                                                 'name': {
                                                                     'description': 'The source marker shape',
                                                                     'type': 'string'
                                                                 }
                                                             },
-                                                            'required': [ 'name' ]
+                                                            'required': ['name']
                                                         },
                                                         'strokeDasharray': {
                                                             'description': 'The stroke dash ratio',
@@ -147,17 +147,17 @@ export const schema = {
                                                         },
                                                         'targetMarker': {
                                                             'description': 'The line target marker',
-                                                            'type': [ 'object', 'string' ],
+                                                            'type': ['object', 'string'],
                                                             'properties': {
                                                                 'name': {
                                                                     'description': 'The target marker shape',
                                                                     'type': 'string'
                                                                 }
                                                             },
-                                                            'required': [ 'name' ]
+                                                            'required': ['name']
                                                         }
                                                     },
-                                                    'required': [ 'targetMarker' ]
+                                                    'required': ['targetMarker']
                                                 }
                                             }
                                         },
@@ -246,7 +246,7 @@ export const schema = {
                                                     'type': 'boolean'
                                                 }
                                             },
-                                            'required': [ 'hasOpenThreats', 'name', 'type' ]
+                                            'required': ['hasOpenThreats', 'name', 'type']
                                         },
                                         'id': {
                                             'description': 'The component unique identifier (UUID)',
@@ -266,7 +266,7 @@ export const schema = {
                                                     'type': 'number'
                                                 }
                                             },
-                                            'required': [ 'x', 'y' ]
+                                            'required': ['x', 'y']
                                         },
                                         'size': {
                                             'description': 'The component body size  (not line)',
@@ -283,7 +283,7 @@ export const schema = {
                                                     'minimum': 10
                                                 }
                                             },
-                                            'required': [ 'height', 'width' ]
+                                            'required': ['height', 'width']
                                         },
                                         'connector': {
                                             'description': 'The  data flows and boundary geometry',
@@ -335,6 +335,10 @@ export const schema = {
                                                         'description': 'The threat description',
                                                         'type': 'string'
                                                     },
+                                                    'TicketLink': {
+                                                        'description': 'Ticket Link',
+                                                        'type': 'string'
+                                                    },
                                                     'mitigation': {
                                                         'description': 'The threat mitigation',
                                                         'type': 'string'
@@ -378,9 +382,9 @@ export const schema = {
                                                         'type': 'string'
                                                     }
                                                 },
-                                                'required': [ 'description', 'mitigation', 'severity', 'status', 'title', 'type' ]
+                                                'required': ['description', 'mitigation', 'severity', 'status', 'title', 'type']
                                             }
-                                        },   
+                                        },
                                         'shape': {
                                             'description': 'The component shape',
                                             'type': 'string'
@@ -404,19 +408,19 @@ export const schema = {
                                                         'type': 'number'
                                                     }
                                                 },
-                                                'required': [ 'x', 'y' ]
+                                                'required': ['x', 'y']
                                             }
-                                        },   
+                                        },
                                         'zIndex': {
                                             'description': 'The component Z-plane',
                                             'type': 'integer'
                                         }
                                     },
-                                    'required': [ 'id', 'shape', 'zIndex' ]
+                                    'required': ['id', 'shape', 'zIndex']
                                 }
                             }
                         },
-                        'required': [ 'cells', 'diagramType', 'id', 'thumbnail', 'title', 'version' ]
+                        'required': ['cells', 'diagramType', 'id', 'thumbnail', 'title', 'version']
                     }
                 },
                 'diagramTop': {
@@ -434,8 +438,8 @@ export const schema = {
                     'minimum': 0
                 }
             },
-            'required': [ 'contributors', 'diagrams', 'diagramTop', 'reviewer', 'threatTop' ]
+            'required': ['contributors', 'diagrams', 'diagramTop', 'reviewer', 'threatTop']
         }
     },
-    'required': [ 'version', 'summary', 'detail' ]
+    'required': ['version', 'summary', 'detail']
 };

@@ -31,7 +31,7 @@ export const schema = {
                     'type': 'string'
                 }
             },
-            'required': [ 'title' ]
+            'required': ['title']
         },
         'detail': {
             'description': 'Threat model definition',
@@ -81,7 +81,7 @@ export const schema = {
                                         'minimum': 50
                                     }
                                 },
-                                'required': [ 'height', 'width' ]
+                                'required': ['height', 'width']
                             },
                             'thumbnail': {
                                 'description': 'The path to the thumbnail image for the diagram',
@@ -129,7 +129,7 @@ export const schema = {
                                                                     'type': 'string'
                                                                 }
                                                             },
-                                                            'required': [ 'text' ]
+                                                            'required': ['text']
                                                         },
                                                         '.element-text': {
                                                             'description': 'The component text attributes',
@@ -225,9 +225,9 @@ export const schema = {
                                                                 'required': ['text']
                                                             }
                                                         },
-                                                        'required': [ 'attrs', 'position' ]
+                                                        'required': ['attrs', 'position']
                                                     }
-                                                },   
+                                                },
                                                 'outOfScope': {
                                                     'description': 'The component flag set if it is not in scope',
                                                     'type': 'boolean'
@@ -245,7 +245,7 @@ export const schema = {
                                                             'type': 'number'
                                                         }
                                                     },
-                                                    'required': [ 'x', 'y' ]
+                                                    'required': ['x', 'y']
                                                 },
                                                 'privilegeLevel': {
                                                     'description': "The component's level of privilege/permissions",
@@ -270,7 +270,7 @@ export const schema = {
                                                             'minimum': 10
                                                         }
                                                     },
-                                                    'required': [ 'height', 'width' ]
+                                                    'required': ['height', 'width']
                                                 },
                                                 'smooth': {
                                                     'description': 'The component curve type, for data flows and boundaries',
@@ -330,6 +330,10 @@ export const schema = {
                                                                 'description': 'The threat description',
                                                                 'type': 'string'
                                                             },
+                                                            'TicketLink': {
+                                                                'description': 'Ticket Link',
+                                                                'type': 'string'
+                                                            },
                                                             'mitigation': {
                                                                 'description': 'The threat mitigation',
                                                                 'type': 'string'
@@ -373,9 +377,9 @@ export const schema = {
                                                                 'type': 'string'
                                                             }
                                                         },
-                                                        'required': [ 'description', 'mitigation', 'severity', 'status', 'title', 'type' ]
+                                                        'required': ['description', 'mitigation', 'severity', 'status', 'title', 'type']
                                                     }
-                                                },   
+                                                },
                                                 'type': {
                                                     'description': 'The component type',
                                                     'type': 'string'
@@ -395,21 +399,21 @@ export const schema = {
                                                                 'type': 'integer'
                                                             }
                                                         },
-                                                        'required': [ 'x', 'y' ]
+                                                        'required': ['x', 'y']
                                                     }
-                                                },   
+                                                },
                                                 'z': {
                                                     'description': 'The component Z-plane',
                                                     'type': 'integer'
                                                 }
                                             },
-                                            'required': [ 'attrs', 'id', 'size', 'type', 'z' ]
+                                            'required': ['attrs', 'id', 'size', 'type', 'z']
                                         }
                                     }
                                 }
                             }
                         },
-                        'required': [ 'diagramType', 'id', 'size', 'thumbnail', 'title', 'diagramJson' ]
+                        'required': ['diagramType', 'id', 'size', 'thumbnail', 'title', 'diagramJson']
                     }
                 },
                 'diagramTop': {
@@ -427,8 +431,8 @@ export const schema = {
                     'minimum': 0
                 }
             },
-            'required': [ 'contributors', 'diagrams' ]
+            'required': ['contributors', 'diagrams']
         },
     },
-    'required': [ 'summary', 'detail' ]
+    'required': ['summary', 'detail']
 };
