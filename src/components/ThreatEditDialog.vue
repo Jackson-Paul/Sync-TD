@@ -88,7 +88,7 @@
                 </b-form-row>
 
                 <b-form-row>
-                    <b-col>
+                    <b-col md=5>
                         <b-form-group
                             id="is-ai"
                             class="float-left"
@@ -105,11 +105,18 @@
                         </b-form-group>
                     </b-col>
 
-                    <b-col md="2" class="d-flex align-items-end">
-                        <b-form-group id="tested-on-group" :label="$t('threats.properties.testedOn')"
-                            label-for="testedOn" class="mb-0 w-100">
-                            <datepicker v-model="threat.testedOn" :format="'MM-DD-YYYY'" :input-class="'form-control'">
-                            </datepicker>
+                    <b-col md=2>
+                        <b-form-group 
+                        id="tested-on-group" 
+                        :label="$t('threats.properties.testedOn')"
+                        label-for="testedOn" 
+                        class="mb-0 w-100">
+
+                        <datepicker 
+                        v-model="threat.testedOn" 
+                        :format="'MM-DD-YYYY'" 
+                        :input-class="'form-control'">
+                        </datepicker>
                         </b-form-group>
                     </b-col>
                 </b-form-row>
