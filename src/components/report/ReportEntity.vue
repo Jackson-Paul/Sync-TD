@@ -86,7 +86,7 @@ export default {
                 showMitigated: this.showMitigated,
                 showOutOfScope: this.showOutOfScope
             }).map((threat) => {
-                const formattedDate = moment(threat.testedOn).format('MM-DD-YYYY');
+                const formattedDate = threat.testedOn ? moment(threat.testedOn).format('MM-DD-YYYY') : '';
                 return {
                     [this.$t('threats.properties.number')]: threat.number,
                     [this.$t('threats.properties.title')]: threat.title,
