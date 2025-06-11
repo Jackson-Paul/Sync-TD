@@ -14,6 +14,7 @@
                     <th>{{ $t('threats.properties.title') }}</th>
                     <th>{{ $t('threats.properties.type') }}</th>
                     <th>{{ $t('threats.properties.isai') }}</th>
+                    <th>{{ $t('threats.properties.testedOn') }}</th>
                     <th>{{ $t('threats.properties.priority') }}</th>
                     <th>{{ $t('threats.properties.status') }}</th>
                     <th>{{ $t('threats.properties.score') }}</th>
@@ -31,6 +32,7 @@
                     <td>{{ threat.title }}</td>
                     <td>{{ threat.type }}</td>
                     <td>{{ threat.isai }}</td>
+                    <td>{{ formatDate(threat.testedOn) }}</td>
                     <td>{{ threat.severity }}</td>
                     <td>{{ threat.status }}</td>
                     <td>{{ threat.score }}</td>
@@ -65,6 +67,7 @@
 
 <script>
 import threatService from '@/service/threats/index.js';
+import moment from 'moment';
 
 export default {
     name: 'TdPrintReportEntity',
@@ -149,6 +152,9 @@ export default {
         toCamelCase(str) {
             // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
             return str.replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\s+/g, '');
+        },
+        formatDate(date) {
+            return date ? moment(date).format('MM-DD-YYYY') : '';
         }
     }
 };
