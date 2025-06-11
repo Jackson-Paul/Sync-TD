@@ -39,6 +39,7 @@
                                     :title="threat.title"
                                     :type="threat.type"
                                     :isai="threat.isai"
+                                    :testedOn="threat.testedOn"
                                     :mitigation="threat.mitigation"
                                     :modelType="threat.modelType"
                                     :number=threat.number

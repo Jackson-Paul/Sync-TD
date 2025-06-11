@@ -53,6 +53,7 @@
 
 <script>
 import threatService from '@/service/threats/index.js';
+import moment from 'moment';
 
 export default {
     name: 'TdReportEntity',
@@ -85,11 +86,13 @@ export default {
                 showMitigated: this.showMitigated,
                 showOutOfScope: this.showOutOfScope
             }).map((threat) => {
+                const formattedDate = threat.testedOn ? moment(threat.testedOn).format('MM-DD-YYYY') : '';
                 return {
                     [this.$t('threats.properties.number')]: threat.number,
                     [this.$t('threats.properties.title')]: threat.title,
                     [this.$t('threats.properties.type')]: threat.type,
                     [this.$t('threats.properties.isai')]: threat.isai,
+                    [this.$t('threats.properties.testedOn')]: formattedDate,
                     [this.$t('threats.properties.priority')]: threat.severity,
                     [this.$t('threats.properties.status')]: threat.status,
                     [this.$t('threats.properties.score')]: threat.score,

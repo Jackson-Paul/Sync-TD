@@ -88,7 +88,7 @@
                 </b-form-row>
 
                 <b-form-row>
-                    <b-col>
+                    <b-col md=5>
                         <b-form-group
                             id="is-ai"
                             class="float-left"
@@ -102,6 +102,21 @@
                             name="isai-checkbox"
                             >
                             </b-form-checkbox>
+                        </b-form-group>
+                    </b-col>
+
+                    <b-col md=2>
+                        <b-form-group 
+                        id="tested-on-group" 
+                        :label="$t('threats.properties.testedOn')"
+                        label-for="testedOn" 
+                        class="mb-0 w-100">
+
+                        <datepicker 
+                        v-model="threat.testedOn" 
+                        :format="'MM-DD-YYYY'" 
+                        :input-class="'form-control'">
+                        </datepicker>
                         </b-form-group>
                     </b-col>
                 </b-form-row>
@@ -198,9 +213,12 @@ import { CELL_DATA_UPDATED } from '@/store/actions/cell.js';
 import tmActions from '@/store/actions/threatmodel.js';
 import dataChanged from '@/service/x6/graph/data-changed.js';
 import threatModels from '@/service/threats/models/index.js';
+import Datepicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 
 export default {
     name: 'TdThreatEditDialog',
+    components: { Datepicker },
     computed: {
         ...mapState({
             cellRef: (state) => state.cell.ref,
@@ -242,7 +260,8 @@ export default {
         return {
             threat: {
                 isai: null,
-                ticketlink:""
+                ticketlink: "",
+                testedOn: new Date()
             },
             modelTypes: [
                 'CIA',
@@ -257,7 +276,10 @@ export default {
     methods: {
         editThreat(threatId,state) {
             const crnthreat = this.cellRef.data.threats.find(x => x.id === threatId);
-            this.threat = {...crnthreat};
+            this.threat = {
+                ...crnthreat,
+                testedOn: crnthreat.testedOn ? new Date(crnthreat.testedOn) : null
+            };
             if (!this.threat) {
                 // this should never happen with a valid threatId
                 console.warn('Trying to access a non-existent threatId: ' + threatId);
@@ -292,6 +314,7 @@ export default {
                 threatRef.new = false;
                 threatRef.number = this.number;
                 threatRef.isai = this.threat.isai;
+                threatRef.testedOn = this.threat.testedOn;
                 threatRef.ticketlink = this.threat.ticketlink;
                 threatRef.score = this.threat.score;
                 this.$store.dispatch(CELL_DATA_UPDATED, this.cellRef.data);

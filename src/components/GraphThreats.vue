@@ -94,7 +94,8 @@ export default {
         modelType: { type: String },
         number: { type: Number },
         isai: {type: Boolean},
-        ticketLink:{type: String}
+        ticketLink:{type: String},
+        testedOn:{type: Date}
     },
     methods: {
         threatSelected() {
