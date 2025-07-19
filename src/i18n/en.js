@@ -358,7 +358,10 @@ const eng = {
             type: 'Type',
             isai:'Suggested By AI',
             ticketlink:'Ticket Link',
-            testedOn: 'Tested At'
+            testedOn: 'Tested At',
+            endpoint: 'Endpoint',
+            parameter: 'URL/Body Parameters',
+            method: 'Method'
         },
         status: {
             notApplicable: 'N/A',
