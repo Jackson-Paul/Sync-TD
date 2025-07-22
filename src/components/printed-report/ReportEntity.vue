@@ -13,8 +13,6 @@
                     <th>{{ $t('threats.properties.number') }}</th>
                     <th>{{ $t('threats.properties.title') }}</th>
                     <th>{{ $t('threats.properties.type') }}</th>
-                    <th>{{ $t('threats.properties.endpoint') }}</th>
-                    <th>{{ $t('threats.properties.parameter') }}</th>
                     <th>{{ $t('threats.properties.isai') }}</th>
                     <th>{{ $t('threats.properties.testedOn') }}</th>
                     <th>{{ $t('threats.properties.priority') }}</th>
@@ -33,8 +31,6 @@
                     <td>{{ threat.number }}</td>
                     <td>{{ threat.title }}</td>
                     <td>{{ threat.type }}</td>
-                    <td>{{ threat.method }} {{ threat.endpoint }}</td>
-                    <td>{{ threat.parameter }}</td>
                     <td>{{ threat.isai }}</td>
                     <td>{{ formatDate(threat.testedOn) }}</td>
                     <td>{{ threat.severity }}</td>

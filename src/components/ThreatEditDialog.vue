@@ -136,44 +136,6 @@
                     </b-col>
                 </b-form-row>
 
-                <b-form-row>
-                    <b-col>
-                        <b-form-group
-                        id="endpoint-group"
-                        :label="$t('threats.properties.endpoint')"
-                        label-for="endpoint"
-                        >
-                        <div class="d-flex">
-                            <b-form-select
-                            v-model="threat.method"
-                            :options="['GET', 'POST']"
-                            class="w-auto"
-                            ></b-form-select>
-                            <b-form-input
-                            id="endpoint"
-                            v-model="threat.endpoint"
-                            class="ml-2 flex-grow-1"
-                            ></b-form-input>
-                        </div>
-                        </b-form-group>
-                    </b-col>
-                </b-form-row>
-
-                <b-form-row>
-                    <b-col>
-                        <b-form-group
-                            id="parameter-group"
-                            :label="$t('threats.properties.parameter')"
-                            label-for="parameter">
-                            <b-form-textarea
-                                id="parameter"
-                                v-model="threat.parameter"
-                                rows="3">
-                            </b-form-textarea>
-                        </b-form-group>
-                    </b-col>
-                </b-form-row>
-
                  <b-form-row>
                     <b-col>
                         <b-form-group
@@ -347,9 +309,6 @@ export default {
                 threatRef.title = this.threat.title;
                 threatRef.type = this.threat.type;
                 threatRef.description = this.threat.description;
-                threatRef.method = this.threat.method;
-                threatRef.endpoint = this.threat.endpoint;
-                threatRef.parameter = this.threat.parameter;
                 threatRef.mitigation = this.threat.mitigation;
                 threatRef.modelType = this.threat.modelType;
                 threatRef.new = false;

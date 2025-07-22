@@ -87,13 +87,10 @@ export default {
                 showOutOfScope: this.showOutOfScope
             }).map((threat) => {
                 const formattedDate = threat.testedOn ? moment(threat.testedOn).format('MM-DD-YYYY') : '';
-                const endpointMethod = `${threat.method} ${threat.endpoint}`; 
                 return {
                     [this.$t('threats.properties.number')]: threat.number,
                     [this.$t('threats.properties.title')]: threat.title,
                     [this.$t('threats.properties.type')]: threat.type,
-                    [this.$t('threats.properties.endpoint')]: endpointMethod,
-                    [this.$t('threats.properties.parameter')]: threat.parameter,
                     [this.$t('threats.properties.isai')]: threat.isai,
                     [this.$t('threats.properties.testedOn')]: formattedDate,
                     [this.$t('threats.properties.priority')]: threat.severity,
