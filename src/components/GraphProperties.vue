@@ -64,6 +64,46 @@
           </b-form-group>
         </b-col>
 
+         <b-col v-if="cellRef.data.type !== 'tm.Text'" md="6">
+          <b-form-group
+            id="url-method-group"
+            label-cols="auto"
+            :label="$t('threatmodel.properties.urlMethod')"
+            label-for="urlMethod"
+          >
+            <div class="d-flex">
+              <b-form-select
+                id="urlMethod"
+                v-model="cellRef.data.method"
+                :options="['GET', 'POST']"
+                class="w-auto text-white bg-danger custom-select-bg"
+                @change="onChangeProperties()"
+              ></b-form-select>
+              <b-form-input
+                id="url"
+                v-model="cellRef.data.url"
+                class="ml-2 flex-grow-1"
+                placeholder="Enter URL"
+                @change="onChangeProperties()"
+              ></b-form-input>
+            </div>
+          </b-form-group>
+        </b-col>
+        <b-col v-if="cellRef.data.type !== 'tm.Text'" md="6">
+          <b-form-group
+            id="parameters-group"
+            label-cols="auto"
+            :label="$t('threatmodel.properties.urlParameters')"
+            label-for="urlParameters"
+          >
+            <b-form-textarea
+              id="urlParameters"
+              v-model="cellRef.data.parameters"
+              @change="onChangeProperties()"
+            ></b-form-textarea>
+          </b-form-group>
+        </b-col>
+
         <b-col v-if="cellRef.data.type !== 'tm.Text'" md="6">
           <b-form-group
             id="description-group"
@@ -250,6 +290,10 @@
 <style lang="scss">
 label {
   font-size: 12px !important;
+}
+.custom-select-bg option {
+  background-color: #585656; /* Bootstrap red */
+  color: white;
 }
 </style>
 

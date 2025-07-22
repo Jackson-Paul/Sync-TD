@@ -185,7 +185,9 @@ const eng = {
             protocol: 'Protocol',
             publicNetwork: 'Public Network',
             storesCredentials: 'Stores Credentials',
-            storesInventory: 'Stores Inventory'
+            storesInventory: 'Stores Inventory',
+            urlMethod: 'Endpoint',
+            urlParameters: 'URL/Body Parameters'
         },
         buttons: {
             delete: 'Delete selected',
