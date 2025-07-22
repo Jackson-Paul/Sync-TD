@@ -15,7 +15,9 @@
         </b-row>
         <b-row>
             <b-col>
-                <p class="entity-description">{{ $t('threatmodel.properties.description') }}: {{ entity.data.description }}</p>
+                <p class="entity-description"><b>{{ $t('threatmodel.properties.description') }}: </b> {{ entity.data.description }}</p>
+                <p class="entity-description"><b>{{ $t('threatmodel.properties.urlMethod') }}: </b> {{ entity.data.method }} {{ entity.data.url }}</p>
+                <p class="entity-description"><b>{{ $t('threatmodel.properties.urlParameters') }}: </b> {{ entity.data.parameters }}</p>
                 <p class="entity-description" v-if="showProperties">{{ properties }}</p>
             </b-col>
         </b-row>
