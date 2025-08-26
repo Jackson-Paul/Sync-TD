@@ -66,6 +66,13 @@
             icon="save"
             :text="$t('forms.save')" />
 
+        <input
+            type="color"
+            :value="toolColor"
+            @input="setToolColor($event.target.value)"
+            title="Pick tool color"
+            style="width: 32px; height: 32px; border: none; margin-right: 8px; vertical-align: middle; cursor: pointer;"
+        />
     </b-btn-group>
 </template>
 
@@ -84,7 +91,8 @@ export default {
     }),
     data() {
         return {
-            gridShowing: true
+            gridShowing: true,
+            toolColor: localStorage.getItem('toolColor') || '#d3d3d3' // light gray default
         };
     },
     props: {
@@ -152,6 +160,14 @@ export default {
         },
         exportSVG() {
             this.graph.exportSVG(`${this.diagram.title}.svg`);
+        },
+        setToolColor(color) {
+            this.toolColor = color;
+            localStorage.setItem('toolColor', color);
+            this.$emit('toolColorChanged', color);
+        },
+        redirectAI(url) {
+            window.open(url, '_blank');
         }
     }
 };
