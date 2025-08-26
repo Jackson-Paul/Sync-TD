@@ -346,7 +346,8 @@ export default {
         async closed() {
             if (!this.$store.getters.modelChanged || await this.getConfirmModal()) {
                 await this.$store.dispatch(tmActions.diagramClosed);
-                this.$router.push({ name: `${this.providerType}ThreatModel`, params: this.$route.params });
+                // Fallback: go back one step in history (reliable if route name is unknown)
+                this.$router.go(-1);
             }
         },
         getConfirmModal() {
