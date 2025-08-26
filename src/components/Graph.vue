@@ -231,7 +231,7 @@ export default {
             // Calculate stats from workspace threats
             const total = threats.length;
             const tested = threats.filter(
-                t => t.status === 'Mitigated' || (t.status === 'Open' && t.testedOn && t.severity !== 'TBD')
+                t => (t.status === 'Mitigated' && t.testedOn) || (t.status === 'Open' && t.testedOn && t.severity !== 'TBD')
             ).length;
             const notTested = Math.round(total - tested);
             const completion = total > 0 ? Math.round((tested / total) * 100) : 0;
