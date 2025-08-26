@@ -166,9 +166,6 @@ export default {
             localStorage.setItem('toolColor', color);
             this.$emit('toolColorChanged', color);
         },
-        redirectAI(url) {
-            window.open(url, '_blank');
-        }
     }
 };
 
