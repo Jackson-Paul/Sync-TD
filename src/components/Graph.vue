@@ -73,11 +73,11 @@
     border: 2px solid #7a75751f;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-size: 0.95rem;
+    font-size: 0.97rem;
     font-weight: 500;
     margin-bottom: 18px;
-    padding: 10px 24px;
-    gap: 18px;
+    padding: 10px 124px;
+    gap: 12px;
 }
 .td-summary-label {
     color: #0b7bb0;
@@ -93,7 +93,7 @@
     margin-right: 15px;
 }
 .td-summary-input {
-    font-size: 1.1rem;
+    font-size: 0.97rem;
     font-weight: 600;
     margin: 0 8px;
     padding: 2px 6px;
