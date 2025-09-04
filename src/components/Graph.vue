@@ -70,17 +70,17 @@
     align-items: center;
     justify-content: flex-start;
     background: #fff;
-    border: 2px solid #e92f2f;
+    border: 2px solid #7a75751f;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 500;
     margin-bottom: 18px;
     padding: 10px 24px;
     gap: 18px;
 }
 .td-summary-label {
-    color: #e92f2f;
+    color: #0b7bb0;
     font-weight: 700;
     margin-right: 4px;
 }
@@ -93,7 +93,7 @@
     margin-right: 15px;
 }
 .td-summary-input {
-    font-size: 1em;
+    font-size: 1.1rem;
     font-weight: 600;
     margin: 0 8px;
     padding: 2px 6px;
@@ -103,14 +103,16 @@
 }
 
 // Fix workspace area always fills available space
+    /* No font-size override */
 .b-row {
     min-height: 60vh;
     height: 100%;
 }
 .b-col {
+    /* No font-size override */
     height: 100%;
     display: flex;
-    flex-direction: column;
+    font-size: 1em;
 }
 .b-row {
     min-height: 60vh;
@@ -126,7 +128,7 @@
     min-height: 60vh;
     width: 100%;
     flex: 1;
-    background: #f8f8f8;
+    background: #fff;
 }
 .custom-reminder-notification {
   position: absolute;
@@ -289,12 +291,12 @@ export default {
     },
     mounted() {
         this.init();
-        // Restore tool color from localStorage and apply to diagram background
-        const savedColor = localStorage.getItem('toolColor') || '#d3d3d3';
-        this.setToolColor(savedColor);
+    // Set diagram background color from diagram.color or default to white
+    const diagramColor = this.diagram.color || '#fdfcfc';
+    this.setToolColor(diagramColor);
         // Always show the reminder on mount
         this.showReminder = true;
-        // Show reminder every 4 minutes, even if user closes it
+        // Show reminder every 5 minutes, even if user closes it
         this.reminderIntervalId = window.setInterval(() => {
             this.showReminder = false;
             this.$nextTick(() => {
@@ -327,8 +329,6 @@ export default {
             if (container) {
                 container.style.background = color;
             }
-            // Persist the color for future sessions
-            localStorage.setItem('toolColor', color);
         },
         saved() {
             // ...existing code...

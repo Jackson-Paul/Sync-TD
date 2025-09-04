@@ -92,7 +92,7 @@ export default {
     data() {
         return {
             gridShowing: true,
-            toolColor: localStorage.getItem('toolColor') || '#d3d3d3' // light gray default
+            toolColor: localStorage.getItem('toolColor') || '#ffffffff'
         };
     },
     props: {
