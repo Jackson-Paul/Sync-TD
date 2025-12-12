@@ -4,7 +4,7 @@ This is a Vue project that serves as the front end of the Sync Threat Dragon web
 
 ## Project setup
 
-`git clone https://github.com/yuvarajsf/Sync-TD.git`
+`git clone https://github.com/Jackson-Paul/Sync-TD`
 
 `cd Sync-TD`
 
