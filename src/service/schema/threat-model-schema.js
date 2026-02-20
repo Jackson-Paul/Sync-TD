@@ -351,7 +351,7 @@ export const schema = {
                                                                 'description': 'The threat suggested by AI',
                                                                 'type': 'boolean'
                                                             },
-                                                             'testedOn': {
+                                                            'testedOn': {
                                                                 'description': 'The threat tested at',
                                                                 'type': 'string'
                                                             },

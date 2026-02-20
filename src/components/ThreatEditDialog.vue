@@ -260,7 +260,7 @@ export default {
         return {
             threat: {
                 isai: null,
-                ticketlink: "",
+                ticketlink: '',
                 testedOn: new Date()
             },
             modelTypes: [

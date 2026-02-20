@@ -5,11 +5,13 @@ import i18n from '@/i18n/index.js';
 import { schema } from './threat-model-schema';
 import { schema as schemaV2 } from './threat-model-schema.V2';
 import { schema as schemaOTM } from './open-threat-model-schema';
+import threatImportSchema from '../../../schemas/threat-import.schema.json';
 
 const ajv = new Ajv({'allowUnionTypes' : true});
 const validate = ajv.compile(schema);
 const validateV2 = ajv.compile(schemaV2);
 const validateOTM = ajv.compile(schemaOTM);
+const validateThreatImport = ajv.compile(threatImportSchema);
 
 export const isValidSchema = (jsonFile) => {
 
@@ -42,7 +44,17 @@ export const isValidOTM = (jsonFile) => {
     return validateOTM(jsonFile);
 };
 
+export const isValidThreatImport = (jsonFile) => {
+    return validateThreatImport(jsonFile);
+};
+
+export const getThreatImportErrors = () => {
+    return validateThreatImport.errors || [];
+};
+
 export default {
     isValidOTM,
-    isValidSchema
+    isValidSchema,
+    isValidThreatImport,
+    getThreatImportErrors
 };
