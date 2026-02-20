@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
   "version": 1,
-  "serialNumber": "urn:uuid:a82bae65-0a11-4cb1-9417-02af4fe6daab",
+  "serialNumber": "urn:uuid:2694d03b-4b6c-4cef-b562-ac2080ea08cb",
   "metadata": {
-    "timestamp": "2025-12-12T14:12:40.352Z",
+    "timestamp": "2026-02-20T13:52:36.959Z",
     "lifecycles": [
       {
         "phase": "build"
@@ -281,6 +281,39 @@
     },
     {
       "type": "library",
+      "name": "vue-fontawesome",
+      "group": "@fortawesome",
+      "version": "2.0.10",
+      "bom-ref": "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
+      "description": "Official Vue 2 component for Font Awesome",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/FortAwesome/vue-fontawesome.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/FortAwesome/vue-fontawesome",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/FortAwesome/vue-fontawesome/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "fontawesome-svg-core",
       "group": "@fortawesome",
       "version": "6.5.1",
@@ -308,39 +341,6 @@
         },
         {
           "url": "https://github.com/FortAwesome/Font-Awesome/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "vue-fontawesome",
-      "group": "@fortawesome",
-      "version": "2.0.10",
-      "bom-ref": "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
-      "description": "Official Vue 2 component for Font Awesome",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/FortAwesome/vue-fontawesome.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/FortAwesome/vue-fontawesome",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/FortAwesome/vue-fontawesome/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         }
@@ -937,39 +937,6 @@
     },
     {
       "type": "library",
-      "name": "fast-deep-equal",
-      "version": "3.1.3",
-      "bom-ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git",
-      "author": "Evgeny Poberezkin",
-      "description": "Fast deep equal",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/epoberezkin/fast-deep-equal.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/epoberezkin/fast-deep-equal#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/epoberezkin/fast-deep-equal/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "json-schema-traverse",
       "version": "1.0.0",
       "bom-ref": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git",
@@ -1003,32 +970,32 @@
     },
     {
       "type": "library",
-      "name": "uri-js",
-      "version": "4.4.1",
-      "bom-ref": "pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git",
-      "author": "Gary Court",
-      "description": "An RFC 3986/3987 compliant, scheme extendable URI/IRI parsing/validating/resolving library for JavaScript.",
+      "name": "fast-deep-equal",
+      "version": "3.1.3",
+      "bom-ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git",
+      "author": "Evgeny Poberezkin",
+      "description": "Fast deep equal",
       "licenses": [
         {
           "license": {
-            "id": "BSD-2-Clause"
+            "id": "MIT"
           }
         }
       ],
-      "purl": "pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git",
+      "purl": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git",
       "externalReferences": [
         {
-          "url": "git+ssh://git@github.com/garycourt/uri-js.git",
+          "url": "git+https://github.com/epoberezkin/fast-deep-equal.git",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\""
         },
         {
-          "url": "https://github.com/garycourt/uri-js",
+          "url": "https://github.com/epoberezkin/fast-deep-equal#readme",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
         {
-          "url": "https://github.com/garycourt/uri-js/issues",
+          "url": "https://github.com/epoberezkin/fast-deep-equal/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         }
@@ -1062,6 +1029,39 @@
         },
         {
           "url": "https://github.com/mengxiong10/date-format-parse/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "uri-js",
+      "version": "4.4.1",
+      "bom-ref": "pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git",
+      "author": "Gary Court",
+      "description": "An RFC 3986/3987 compliant, scheme extendable URI/IRI parsing/validating/resolving library for JavaScript.",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git",
+      "externalReferences": [
+        {
+          "url": "git+ssh://git@github.com/garycourt/uri-js.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/garycourt/uri-js",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/garycourt/uri-js/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         }
@@ -1137,12 +1137,12 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-history",
+      "name": "x6-plugin-export",
       "group": "@antv",
-      "version": "2.2.4",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
+      "version": "2.1.6",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
       "author": "bubkoo",
-      "description": "history plugin for X6",
+      "description": "export plugin for X6.",
       "licenses": [
         {
           "license": {
@@ -1150,15 +1150,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
+      "purl": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
       "externalReferences": [
         {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-history",
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-export",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/history",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/export",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
@@ -1205,12 +1205,12 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-export",
+      "name": "x6-plugin-history",
       "group": "@antv",
-      "version": "2.1.6",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
+      "version": "2.2.4",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
       "author": "bubkoo",
-      "description": "export plugin for X6.",
+      "description": "history plugin for X6",
       "licenses": [
         {
           "license": {
@@ -1218,15 +1218,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
+      "purl": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
       "externalReferences": [
         {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-export",
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-history",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/export",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/history",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
@@ -1307,6 +1307,40 @@
     },
     {
       "type": "library",
+      "name": "x6-plugin-snapline",
+      "group": "@antv",
+      "version": "2.1.7",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "author": "bubkoo",
+      "description": "snapline plugin for X6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-snapline",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/snapline",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/antvis/x6/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "x6-plugin-transform",
       "group": "@antv",
       "version": "2.1.8",
@@ -1341,12 +1375,12 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-snapline",
+      "name": "x6-plugin-dnd",
       "group": "@antv",
-      "version": "2.1.7",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "version": "2.1.1",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd",
       "author": "bubkoo",
-      "description": "snapline plugin for X6",
+      "description": "dnd plugin for X6",
       "licenses": [
         {
           "license": {
@@ -1354,15 +1388,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "purl": "pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd",
       "externalReferences": [
         {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-snapline",
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-dnd",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/snapline",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/dnd",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
@@ -1401,40 +1435,6 @@
         },
         {
           "url": "https://github.com/webpack-contrib/css-loader/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "x6-plugin-dnd",
-      "group": "@antv",
-      "version": "2.1.1",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd",
-      "author": "bubkoo",
-      "description": "dnd plugin for X6",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-dnd",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
-        },
-        {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/dnd",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/antvis/x6/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         }
@@ -1581,13 +1581,13 @@
         "pkg:npm/vue@2.7.16?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue.git",
         "pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git",
         "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git",
+        "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git",
         "pkg:npm/bootstrap-vue@2.23.1?vcs_url=git%2Bhttps%3A//github.com/bootstrap-vue/bootstrap-vue.git",
         "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
         "pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git",
         "pkg:npm/%40fortawesome/free-solid-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git",
         "pkg:npm/%40fortawesome/free-brands-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git",
         "pkg:npm/vue-toastification@1.7.14?vcs_url=git%2Bhttps%3A//github.com/Maronato/vue-toastification.git",
-        "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git",
         "pkg:npm/vue-loader@15.11.1?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-loader.git",
         "pkg:npm/vuex-persist@3.1.3?vcs_url=git%2Bhttps%3A//github.com/championswimmer/vuex-persist.git",
         "pkg:npm/is-electron@2.2.2?vcs_url=git%2Bssh%3A//git%40github.com/cheton/is-electron.git",
@@ -1634,13 +1634,13 @@
       "ref": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"
     },
     {
-      "ref": "pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"
-    },
-    {
       "ref": "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
       "dependsOn": [
         "pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"
       ]
+    },
+    {
+      "ref": "pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"
     },
     {
       "ref": "pkg:npm/%40fortawesome/free-brands-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"
@@ -1724,16 +1724,16 @@
       ]
     },
     {
-      "ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git"
-    },
-    {
       "ref": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git"
     },
     {
-      "ref": "pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git"
+      "ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git"
     },
     {
       "ref": "pkg:npm/date-format-parse@0.2.7?vcs_url=git%2Bhttps%3A//github.com/mengxiong10/date-format-parse.git"
+    },
+    {
+      "ref": "pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git"
     },
     {
       "ref": "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6",
@@ -1749,7 +1749,7 @@
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
+      "ref": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
@@ -1762,7 +1762,7 @@
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
+      "ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
@@ -1780,25 +1780,25 @@
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-plugin-transform@2.1.8?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-transform",
-      "dependsOn": [
-        "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
-      ]
-    },
-    {
       "ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
     },
     {
-      "ref": "pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git"
+      "ref": "pkg:npm/%40antv/x6-plugin-transform@2.1.8?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-transform",
+      "dependsOn": [
+        "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
+      ]
     },
     {
       "ref": "pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
+    },
+    {
+      "ref": "pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git"
     },
     {
       "ref": "pkg:npm/%40antv/x6-common@2.0.17?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-common",
