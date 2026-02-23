@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:a82bae65-0a11-4cb1-9417-02af4fe6daab">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" version="1" serialNumber="urn:uuid:2694d03b-4b6c-4cef-b562-ac2080ea08cb">
   <metadata>
-    <timestamp>2025-12-12T14:12:40.352Z</timestamp>
+    <timestamp>2026-02-20T13:52:36.959Z</timestamp>
     <lifecycles>
       <lifecycle>
         <phase>build</phase>
@@ -222,6 +222,32 @@
         </reference>
       </externalReferences>
     </component>
+    <component type="library" bom-ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git">
+      <group>@fortawesome</group>
+      <name>vue-fontawesome</name>
+      <version>2.0.10</version>
+      <description>Official Vue 2 component for Font Awesome</description>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>git+https://github.com/FortAwesome/vue-fontawesome.git</url>
+          <comment>as detected from PackageJson property "repository.url"</comment>
+        </reference>
+        <reference type="website">
+          <url>https://github.com/FortAwesome/vue-fontawesome</url>
+          <comment>as detected from PackageJson property "homepage"</comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/FortAwesome/vue-fontawesome/issues</url>
+          <comment>as detected from PackageJson property "bugs.url"</comment>
+        </reference>
+      </externalReferences>
+    </component>
     <component type="library" bom-ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git">
       <author>The Font Awesome Team</author>
       <group>@fortawesome</group>
@@ -245,32 +271,6 @@
         </reference>
         <reference type="issue-tracker">
           <url>https://github.com/FortAwesome/Font-Awesome/issues</url>
-          <comment>as detected from PackageJson property "bugs.url"</comment>
-        </reference>
-      </externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git">
-      <group>@fortawesome</group>
-      <name>vue-fontawesome</name>
-      <version>2.0.10</version>
-      <description>Official Vue 2 component for Font Awesome</description>
-      <licenses>
-        <license>
-          <id>MIT</id>
-        </license>
-      </licenses>
-      <purl>pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git</purl>
-      <externalReferences>
-        <reference type="vcs">
-          <url>git+https://github.com/FortAwesome/vue-fontawesome.git</url>
-          <comment>as detected from PackageJson property "repository.url"</comment>
-        </reference>
-        <reference type="website">
-          <url>https://github.com/FortAwesome/vue-fontawesome</url>
-          <comment>as detected from PackageJson property "homepage"</comment>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/FortAwesome/vue-fontawesome/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -738,32 +738,6 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git">
-      <author>Evgeny Poberezkin</author>
-      <name>fast-deep-equal</name>
-      <version>3.1.3</version>
-      <description>Fast deep equal</description>
-      <licenses>
-        <license>
-          <id>MIT</id>
-        </license>
-      </licenses>
-      <purl>pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git</purl>
-      <externalReferences>
-        <reference type="vcs">
-          <url>git+https://github.com/epoberezkin/fast-deep-equal.git</url>
-          <comment>as detected from PackageJson property "repository.url"</comment>
-        </reference>
-        <reference type="website">
-          <url>https://github.com/epoberezkin/fast-deep-equal#readme</url>
-          <comment>as detected from PackageJson property "homepage"</comment>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/epoberezkin/fast-deep-equal/issues</url>
-          <comment>as detected from PackageJson property "bugs.url"</comment>
-        </reference>
-      </externalReferences>
-    </component>
     <component type="library" bom-ref="pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git">
       <author>Evgeny Poberezkin</author>
       <name>json-schema-traverse</name>
@@ -790,28 +764,28 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git">
-      <author>Gary Court</author>
-      <name>uri-js</name>
-      <version>4.4.1</version>
-      <description>An RFC 3986/3987 compliant, scheme extendable URI/IRI parsing/validating/resolving library for JavaScript.</description>
+    <component type="library" bom-ref="pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git">
+      <author>Evgeny Poberezkin</author>
+      <name>fast-deep-equal</name>
+      <version>3.1.3</version>
+      <description>Fast deep equal</description>
       <licenses>
         <license>
-          <id>BSD-2-Clause</id>
+          <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git</purl>
+      <purl>pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+ssh://git@github.com/garycourt/uri-js.git</url>
+          <url>git+https://github.com/epoberezkin/fast-deep-equal.git</url>
           <comment>as detected from PackageJson property "repository.url"</comment>
         </reference>
         <reference type="website">
-          <url>https://github.com/garycourt/uri-js</url>
+          <url>https://github.com/epoberezkin/fast-deep-equal#readme</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
-          <url>https://github.com/garycourt/uri-js/issues</url>
+          <url>https://github.com/epoberezkin/fast-deep-equal/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -838,6 +812,32 @@
         </reference>
         <reference type="issue-tracker">
           <url>https://github.com/mengxiong10/date-format-parse/issues</url>
+          <comment>as detected from PackageJson property "bugs.url"</comment>
+        </reference>
+      </externalReferences>
+    </component>
+    <component type="library" bom-ref="pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git">
+      <author>Gary Court</author>
+      <name>uri-js</name>
+      <version>4.4.1</version>
+      <description>An RFC 3986/3987 compliant, scheme extendable URI/IRI parsing/validating/resolving library for JavaScript.</description>
+      <licenses>
+        <license>
+          <id>BSD-2-Clause</id>
+        </license>
+      </licenses>
+      <purl>pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>git+ssh://git@github.com/garycourt/uri-js.git</url>
+          <comment>as detected from PackageJson property "repository.url"</comment>
+        </reference>
+        <reference type="website">
+          <url>https://github.com/garycourt/uri-js</url>
+          <comment>as detected from PackageJson property "homepage"</comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/garycourt/uri-js/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -896,25 +896,25 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
+    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
       <author>bubkoo</author>
       <group>@antv</group>
-      <name>x6-plugin-history</name>
-      <version>2.2.4</version>
-      <description>history plugin for X6</description>
+      <name>x6-plugin-export</name>
+      <version>2.1.6</version>
+      <description>export plugin for X6.</description>
       <licenses>
         <license>
           <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history</purl>
+      <purl>pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-history</url>
+          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-export</url>
           <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
         </reference>
         <reference type="website">
-          <url>https://x6.antv.antgroup.com/tutorial/plugins/history</url>
+          <url>https://x6.antv.antgroup.com/tutorial/plugins/export</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
@@ -950,25 +950,25 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
+    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
       <author>bubkoo</author>
       <group>@antv</group>
-      <name>x6-plugin-export</name>
-      <version>2.1.6</version>
-      <description>export plugin for X6.</description>
+      <name>x6-plugin-history</name>
+      <version>2.2.4</version>
+      <description>history plugin for X6</description>
       <licenses>
         <license>
           <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export</purl>
+      <purl>pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-export</url>
+          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-history</url>
           <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
         </reference>
         <reference type="website">
-          <url>https://x6.antv.antgroup.com/tutorial/plugins/export</url>
+          <url>https://x6.antv.antgroup.com/tutorial/plugins/history</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
@@ -1031,6 +1031,33 @@
         </reference>
       </externalReferences>
     </component>
+    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline">
+      <author>bubkoo</author>
+      <group>@antv</group>
+      <name>x6-plugin-snapline</name>
+      <version>2.1.7</version>
+      <description>snapline plugin for X6</description>
+      <licenses>
+        <license>
+          <id>MIT</id>
+        </license>
+      </licenses>
+      <purl>pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline</purl>
+      <externalReferences>
+        <reference type="vcs">
+          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-snapline</url>
+          <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
+        </reference>
+        <reference type="website">
+          <url>https://x6.antv.antgroup.com/tutorial/plugins/snapline</url>
+          <comment>as detected from PackageJson property "homepage"</comment>
+        </reference>
+        <reference type="issue-tracker">
+          <url>https://github.com/antvis/x6/issues</url>
+          <comment>as detected from PackageJson property "bugs.url"</comment>
+        </reference>
+      </externalReferences>
+    </component>
     <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-transform@2.1.8?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-transform">
       <author>bubkoo</author>
       <group>@antv</group>
@@ -1058,25 +1085,25 @@
         </reference>
       </externalReferences>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline">
+    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd">
       <author>bubkoo</author>
       <group>@antv</group>
-      <name>x6-plugin-snapline</name>
-      <version>2.1.7</version>
-      <description>snapline plugin for X6</description>
+      <name>x6-plugin-dnd</name>
+      <version>2.1.1</version>
+      <description>dnd plugin for X6</description>
       <licenses>
         <license>
           <id>MIT</id>
         </license>
       </licenses>
-      <purl>pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline</purl>
+      <purl>pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd</purl>
       <externalReferences>
         <reference type="vcs">
-          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-snapline</url>
+          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-dnd</url>
           <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
         </reference>
         <reference type="website">
-          <url>https://x6.antv.antgroup.com/tutorial/plugins/snapline</url>
+          <url>https://x6.antv.antgroup.com/tutorial/plugins/dnd</url>
           <comment>as detected from PackageJson property "homepage"</comment>
         </reference>
         <reference type="issue-tracker">
@@ -1107,33 +1134,6 @@
         </reference>
         <reference type="issue-tracker">
           <url>https://github.com/webpack-contrib/css-loader/issues</url>
-          <comment>as detected from PackageJson property "bugs.url"</comment>
-        </reference>
-      </externalReferences>
-    </component>
-    <component type="library" bom-ref="pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd">
-      <author>bubkoo</author>
-      <group>@antv</group>
-      <name>x6-plugin-dnd</name>
-      <version>2.1.1</version>
-      <description>dnd plugin for X6</description>
-      <licenses>
-        <license>
-          <id>MIT</id>
-        </license>
-      </licenses>
-      <purl>pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd</purl>
-      <externalReferences>
-        <reference type="vcs">
-          <url>git+https://github.com/antvis/x6.git#packages/x6-plugin-dnd</url>
-          <comment>as detected from PackageJson property "repository.url" and "repository.directory"</comment>
-        </reference>
-        <reference type="website">
-          <url>https://x6.antv.antgroup.com/tutorial/plugins/dnd</url>
-          <comment>as detected from PackageJson property "homepage"</comment>
-        </reference>
-        <reference type="issue-tracker">
-          <url>https://github.com/antvis/x6/issues</url>
           <comment>as detected from PackageJson property "bugs.url"</comment>
         </reference>
       </externalReferences>
@@ -1249,13 +1249,13 @@
       <dependency ref="pkg:npm/vue@2.7.16?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue.git"/>
       <dependency ref="pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git"/>
       <dependency ref="pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"/>
+      <dependency ref="pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git"/>
       <dependency ref="pkg:npm/bootstrap-vue@2.23.1?vcs_url=git%2Bhttps%3A//github.com/bootstrap-vue/bootstrap-vue.git"/>
       <dependency ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git"/>
       <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
       <dependency ref="pkg:npm/%40fortawesome/free-solid-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
       <dependency ref="pkg:npm/%40fortawesome/free-brands-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
       <dependency ref="pkg:npm/vue-toastification@1.7.14?vcs_url=git%2Bhttps%3A//github.com/Maronato/vue-toastification.git"/>
-      <dependency ref="pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git"/>
       <dependency ref="pkg:npm/vue-loader@15.11.1?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-loader.git"/>
       <dependency ref="pkg:npm/vuex-persist@3.1.3?vcs_url=git%2Bhttps%3A//github.com/championswimmer/vuex-persist.git"/>
       <dependency ref="pkg:npm/is-electron@2.2.2?vcs_url=git%2Bssh%3A//git%40github.com/cheton/is-electron.git"/>
@@ -1287,10 +1287,10 @@
     </dependency>
     <dependency ref="pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git"/>
     <dependency ref="pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"/>
-    <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git">
       <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     </dependency>
+    <dependency ref="pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/%40fortawesome/free-brands-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/%40fortawesome/free-solid-svg-icons@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"/>
     <dependency ref="pkg:npm/bootstrap-vue@2.23.1?vcs_url=git%2Bhttps%3A//github.com/bootstrap-vue/bootstrap-vue.git">
@@ -1330,10 +1330,10 @@
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
       <dependency ref="pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd"/>
     </dependency>
-    <dependency ref="pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git"/>
     <dependency ref="pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git"/>
-    <dependency ref="pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git"/>
+    <dependency ref="pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git"/>
     <dependency ref="pkg:npm/date-format-parse@0.2.7?vcs_url=git%2Bhttps%3A//github.com/mengxiong10/date-format-parse.git"/>
+    <dependency ref="pkg:npm/uri-js@4.4.1?vcs_url=git%2Bssh%3A//git%40github.com/garycourt/uri-js.git"/>
     <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6">
       <dependency ref="pkg:npm/%40antv/x6-common@2.0.17?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-common"/>
       <dependency ref="pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry"/>
@@ -1341,14 +1341,14 @@
     <dependency ref="pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
-    <dependency ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
+    <dependency ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
     <dependency ref="pkg:npm/%40antv/x6-plugin-keyboard@2.2.3?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-keyboard">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
       <dependency ref="pkg:npm/mousetrap@1.6.5?vcs_url=git%3A//github.com/ccampbell/mousetrap.git"/>
     </dependency>
-    <dependency ref="pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export">
+    <dependency ref="pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
     <dependency ref="pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller">
@@ -1357,16 +1357,16 @@
     <dependency ref="pkg:npm/%40antv/x6-plugin-selection@2.2.2?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-selection">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
-    <dependency ref="pkg:npm/%40antv/x6-plugin-transform@2.1.8?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-transform">
-      <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
-    </dependency>
     <dependency ref="pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
-    <dependency ref="pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git"/>
+    <dependency ref="pkg:npm/%40antv/x6-plugin-transform@2.1.8?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-transform">
+      <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
+    </dependency>
     <dependency ref="pkg:npm/%40antv/x6-plugin-dnd@2.1.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-dnd">
       <dependency ref="pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"/>
     </dependency>
+    <dependency ref="pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git"/>
     <dependency ref="pkg:npm/%40antv/x6-common@2.0.17?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-common">
       <dependency ref="pkg:npm/lodash-es@4.17.21?vcs_url=git%2Bhttps%3A//github.com/lodash/lodash.git"/>
     </dependency>
