@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- Summary Bar -->
+    <!-- ⬇️ ADDED :class binding so the collapse CSS can apply -->
     <div class="td-summary-bar" :class="{ 'is-collapsed': isCollapsed }" role="region" aria-label="Summary bar">
       <div id="td-summary-content" class="td-summary-content">
         <span class="td-summary-label">Total:</span>
@@ -11,8 +12,9 @@
         <span class="td-summary-value">{{ threadStats.notTested }}</span>
         <span class="td-summary-label">Completion:</span>
         <span class="td-summary-value">{{ threadStats.completion }}%</span>
-        <span class="td-summary-label">Target days:</span>
+        <span class="td-summary-label">Target:</span>
         <input type="number" min="1" v-model.number="userTargetDays" class="td-summary-input" style="width:60px;" />
+        <span class="td-summary-label">days</span>
         <span class="td-summary-label">Started:</span>
         <input type="date" v-model="userStartedDate" class="td-summary-input" style="width:140px;" />
         <span class="td-summary-label">Remaining:</span>
@@ -76,9 +78,24 @@
       <td-process-import-modal ref="processImportModal" @import-processes="handleImportProcesses" />
     </div>
 
-    <div v-if="showReminder" class="custom-reminder-notification">
-      <span style="flex: 1;">Remember to save your work regularly!</span>
-      <button class="custom-reminder-close" @click="closeReminder">Close</button>
+    <!-- ✅ Redesigned reminder toast (non-intrusive, auto-hide, accessible) -->
+    <div
+      v-if="showReminder"
+      class="save-toast"
+      role="status"
+      aria-live="polite"
+      @mouseenter="pauseToast"
+      @mouseleave="resumeToast"
+    >
+      <div class="save-toast__icon" aria-hidden="true">💾</div>
+      <div class="save-toast__body">
+        <div class="save-toast__title">Remember to save your work</div>
+        <div class="save-toast__text">Unsaved changes may be lost.</div>
+        <div class="save-toast__progress">
+          <div class="save-toast__bar" :style="{ width: progress + '%' }"></div>
+        </div>
+      </div>
+      <button class="save-toast__close" @click="closeReminder" aria-label="Dismiss reminder">✕</button>
     </div>
   </div>
 </template>
@@ -90,9 +107,9 @@
   top: 0;
   z-index: 1000;
 
-  /* ✅ Use grid so content and toggle don't overlap */
+  /* grid so content and toggle don't overlap */
   display: grid;
-  grid-template-columns: 1fr auto; /* content grows, toggle stays */
+  grid-template-columns: 1fr auto;
   align-items: center;
 
   background: #fff;
@@ -102,9 +119,9 @@
   font-size: 0.98rem;
   font-weight: 500;
   margin-bottom: 18px;
-  padding: 10px 12px; /* ⬅️ removed large right padding that caused clipping */
-  column-gap: 12px;   /* space between content and toggle */
-  overflow: visible;  /* allow dropdown shadows/menus to render */
+  padding: 10px 12px;
+  column-gap: 12px;
+  overflow: visible;
 }
 
 /* Fixed variant (if you set isFixed=true) */
@@ -129,10 +146,10 @@
   overflow: hidden;
   max-height: 240px; /* ensure this is >= your actual content height */
 
-  /* ✅ Let this area shrink and wrap instead of clipping */
+  /* Let this area shrink and wrap instead of clipping */
   min-width: 0;
   flex: 1 1 auto;
-  flex-wrap: wrap; /* ⬅️ was nowrap */
+  flex-wrap: wrap;
 }
 
 .td-summary-content > * {
@@ -223,24 +240,19 @@
   padding: 8px;
 }
 
-/* --- Elegant, Medium-Sized Button Style --- */
-
+/* --- Buttons in summary bar --- */
 .td-summary-content .btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-
-  /* softer look */
-  padding: 6px 12px;               /* slightly narrower to reduce crowding */
+  padding: 6px 12px;
   font-size: 0.85rem;
   font-weight: 600;
-
-  border-radius: 6px;              /* smoother corners */
-  border-width: 1.5px;             /* slimmer border */
+  border-radius: 6px;
+  border-width: 1.5px;
   background: #fff;
   transition: all 0.18s ease-in-out;
-
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);  /* elegant subtle shadow */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
 /* Primary (Import) */
@@ -273,59 +285,190 @@
   color: white;
 }
 
-.custom-reminder-notification {
-  position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  min-width: 340px;
-  max-width: 600px;
-  background: #fff;
-  color: #120e02ff;
-  border: 2px solid #e92f2fff;
-  border-radius: 8px;
-  padding: 10px 18px;
+/* ===============================
+   ✅ Redesigned Save Reminder Toast
+   =============================== */
+.save-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1100;
+
   display: flex;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  font-family: inherit;
-  font-size: 22px;
-  font-weight: 500;
-}
-.custom-reminder-close {
-  background: #fff;
-  border: 2px solid #6d4c00;
-  color: #222;
-  font-weight: 600;
-  margin-left: 24px;
-  cursor: pointer;
-  font-size: 18px;
-  padding: 2px 16px;
-  border-radius: 4px;
-  transition: background 0.2s, border 0.2s;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-.custom-reminder-close:hover {
-  background: #648de1ff;
-  border: 2px solid #222;
+  align-items: flex-start;
+  gap: 12px;
+
+  min-width: 280px;
+  max-width: 360px;
+
+  background: #ffffff;
+  color: #1f2328;
+  border: 1px solid rgba(12, 12, 13, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  padding: 12px 12px 10px 12px;
+
+  animation: toast-in 160ms ease-out both;
 }
 
-/* Optional: tighten spacing on narrower viewports */
-@media (max-width: 1200px) {
-  .td-summary-content { gap: 8px; }
-  .td-summary-input { width: 110px; } /* date input width */
+@keyframes toast-in {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
-@media (max-width: 992px) {
-  .td-summary-content { gap: 6px; }
-  .td-summary-input { width: 100px; }
+
+.save-toast__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: #e7f3ff;
+  color: #0b7bb0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  user-select: none;
+  flex: 0 0 auto;
+}
+
+.save-toast__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.save-toast__title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.save-toast__text {
+  font-size: 13px;
+  color: #4a4f55;
+}
+
+.save-toast__progress {
+  margin-top: 6px;
+  height: 3px;
+  width: 100%;
+  background: #eef1f4;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.save-toast__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #0b7bb0, #28a745);
+  width: 0%;
+  transition: width 120ms linear;
+}
+
+.save-toast__close {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 16px;
+  padding: 2px;
+  margin-left: 4px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.save-toast__close:hover {
+  background: rgba(0,0,0,0.05);
+  color: #111827;
+}
+.save-toast__close:focus {
+  outline: 2px solid #5b9dd9;
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .save-toast { animation: none; }
+  .save-toast__bar { transition: none; }
+}
+
+/* Optional dark mode (if body/class toggles a dark theme) */
+:deep(.dark) .save-toast,
+:deep([data-theme="dark"]) .save-toast {
+  background: #1f2937;
+  color: #e5e7eb;
+  border-color: rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+:deep(.dark) .save-toast__icon,
+:deep([data-theme="dark"]) .save-toast__icon {
+  background: #083B55;
+  color: #b9e6ff;
+}
+:deep(.dark) .save-toast__text,
+:deep([data-theme="dark"]) .save-toast__text {
+  color: #cbd5e1;
+}
+:deep(.dark) .save-toast__progress,
+:deep([data-theme="dark"]) .save-toast__progress {
+  background: #334155;
 }
 </style>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 /* ⬇️ local reactive state to control collapse */
 const isCollapsed = ref(false);
+
+/* ✅ Toast controls (non-intrusive save reminder) */
+const progress = ref(0);
+const toastPaused = ref(false);
+let toastTimerId = null;
+let toastTickId = null;
+const TOAST_DURATION_MS = 6000; // total visible time
+const TICK_MS = 120;            // UI refresh cadence
+
+function startToastTimers() {
+  clearToastTimers();
+
+  const startedAt = Date.now();
+  toastTickId = window.setInterval(() => {
+    if (toastPaused.value) return;
+    const elapsed = Date.now() - startedAt;
+    progress.value = Math.min(100, Math.round((elapsed / TOAST_DURATION_MS) * 100));
+  }, TICK_MS);
+
+  toastTimerId = window.setTimeout(() => {
+    closeReminder();
+  }, TOAST_DURATION_MS);
+}
+
+function clearToastTimers() {
+  if (toastTimerId) { clearTimeout(toastTimerId); toastTimerId = null; }
+  if (toastTickId) { clearInterval(toastTickId); toastTickId = null; }
+}
+
+function pauseToast() {
+  toastPaused.value = true;
+  clearToastTimers(); // stop both countdown and progress while hovered
+}
+
+function resumeToast() {
+  toastPaused.value = false;
+  // resume from current progress for the remaining time
+  const remaining = Math.max(0, Math.round((1 - progress.value / 100) * TOAST_DURATION_MS));
+  const startedAt = Date.now() - (progress.value / 100) * TOAST_DURATION_MS;
+
+  toastTickId = window.setInterval(() => {
+    const elapsed = Date.now() - startedAt;
+    progress.value = Math.min(100, Math.round((elapsed / TOAST_DURATION_MS) * 100));
+  }, TICK_MS);
+
+  toastTimerId = window.setTimeout(() => {
+    closeReminder();
+  }, remaining || 1);
+}
+
+/* Expose/mirror your existing showReminder from Options API data()
+   (Vue will merge; here we just watch/drive timers on mount) */
 </script>
 
 <script>
@@ -452,12 +595,23 @@ export default {
     const diagramColor = this.diagram.color || '#fdfcfc';
     this.setToolColor(diagramColor);
     this.showReminder = false;
+
+    // Show reminder every 5 minutes (existing behavior)
     this.reminderIntervalId = window.setInterval(() => {
       this.showReminder = false;
       this.$nextTick(() => {
         this.showReminder = true;
+        // start toast timers when it appears
+        if (typeof window.startToastTimers === 'function') window.startToastTimers(); // no-op safety
       });
     }, 5 * 60 * 1000);
+
+    // Attach the toast starter from <script setup> into window-less scope safely
+    // (avoids mixing options <-> setup; but we’ll dispatch via a local method below)
+    this.$nextTick(() => {
+      // local starter: kicks off progress + auto-dismiss
+      this._startLocalToast && this._startLocalToast();
+    });
   },
   methods: {
     init() {
@@ -597,7 +751,21 @@ export default {
     },
     closeReminder() {
       this.showReminder = false;
+      // also ensure timers are cleared if user dismisses
+      if (this._clearLocalToast) this._clearLocalToast();
     },
+
+    /* 🔗 Small glue to call setup-timers without refactoring component */
+    _startLocalToast() {
+      // define functions on window-less closure via DOM timers already present
+      if (typeof window === 'undefined') return;
+      // no-ops; actual logic lives in <script setup> via injected globals below
+      if (window.__td_startToast) window.__td_startToast();
+    },
+    _clearLocalToast() {
+      if (typeof window === 'undefined') return;
+      if (window.__td_clearToast) window.__td_clearToast();
+    }
   },
   destroyed() {
     diagramService.dispose(this.graph);
@@ -605,6 +773,28 @@ export default {
       clearInterval(this.reminderIntervalId);
       this.reminderIntervalId = null;
     }
+    // clear toast timers on destroy
+    if (this._clearLocalToast) this._clearLocalToast();
   }
 };
+</script>
+
+<script setup>
+// Wire the toast timers from <script setup> into Options API methods without refactor
+// (keeps this a safe patch).
+if (typeof window !== 'undefined') {
+  // expose starters/clearers for the Options API to call
+  window.__td_startToast = () => {
+    // showReminder is managed by Options API; when it's true, start timers
+    // We defensively look for the toast container before starting
+    const el = document.querySelector('.save-toast');
+    if (!el) return;
+    // @ts-ignore - these come from the first <script setup> block
+    if (typeof startToastTimers === 'function') startToastTimers();
+  };
+  window.__td_clearToast = () => {
+    // @ts-ignore
+    if (typeof clearToastTimers === 'function') clearToastTimers();
+  };
+}
 </script>
