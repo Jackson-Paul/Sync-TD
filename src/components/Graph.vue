@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- Summary Bar -->
-    <!-- ⬇️ ADDED :class binding so the collapse CSS can apply -->
     <div class="td-summary-bar" :class="{ 'is-collapsed': isCollapsed }" role="region" aria-label="Summary bar">
       <div id="td-summary-content" class="td-summary-content">
         <span class="td-summary-label">Total:</span>
