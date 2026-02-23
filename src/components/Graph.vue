@@ -12,9 +12,8 @@
         <span class="td-summary-value">{{ threadStats.notTested }}</span>
         <span class="td-summary-label">Completion:</span>
         <span class="td-summary-value">{{ threadStats.completion }}%</span>
-        <span class="td-summary-label">Target:</span>
+        <span class="td-summary-label">Target days:</span>
         <input type="number" min="1" v-model.number="userTargetDays" class="td-summary-input" style="width:60px;" />
-        <span class="td-summary-label">days</span>
         <span class="td-summary-label">Started:</span>
         <input type="date" v-model="userStartedDate" class="td-summary-input" style="width:140px;" />
         <span class="td-summary-label">Remaining:</span>
@@ -86,14 +85,17 @@
 </template>
 
 <style lang="scss" scoped>
-/* Base bar styles (your original + stacking behavior) */
+/* Base bar styles (original look + grid layout to prevent clipping) */
 .td-summary-bar {
   position: sticky; /* sticky by default */
   top: 0;
   z-index: 1000;
-  display: flex;
+
+  /* ✅ Use grid so content and toggle don't overlap */
+  display: grid;
+  grid-template-columns: 1fr auto; /* content grows, toggle stays */
   align-items: center;
-  justify-content: flex-start;
+
   background: #fff;
   border: 2px solid #7a75751f;
   border-radius: 8px;
@@ -101,8 +103,9 @@
   font-size: 0.98rem;
   font-weight: 500;
   margin-bottom: 18px;
-  padding: 10px 124px;
-  gap: 12px;
+  padding: 10px 12px; /* ⬅️ removed large right padding that caused clipping */
+  column-gap: 12px;   /* space between content and toggle */
+  overflow: visible;  /* allow dropdown shadows/menus to render */
 }
 
 /* Fixed variant (if you set isFixed=true) */
@@ -121,16 +124,21 @@
   flex-direction: row;
   align-items: center;
   gap: 12px;
+
   /* Smooth collapse */
   transition: max-height 0.25s ease, opacity 0.25s ease;
   overflow: hidden;
   max-height: 240px; /* ensure this is >= your actual content height */
+
+  /* ✅ Let this area shrink and wrap instead of clipping */
+  min-width: 0;
   flex: 1 1 auto;
-  flex-wrap: nowrap; /* prevent vertical stacking */
+  flex-wrap: wrap; /* ⬅️ was nowrap */
 }
 
 .td-summary-content > * {
   width: auto;
+  white-space: nowrap; /* keep inline controls from splitting */
 }
 
 /* Collapsed state */
@@ -224,7 +232,7 @@
   gap: 6px;
 
   /* softer look */
-  padding: 6px 14px;               /* medium size */
+  padding: 6px 12px;               /* slightly narrower to reduce crowding */
   font-size: 0.85rem;
   font-weight: 600;
 
@@ -302,6 +310,16 @@
 .custom-reminder-close:hover {
   background: #648de1ff;
   border: 2px solid #222;
+}
+
+/* Optional: tighten spacing on narrower viewports */
+@media (max-width: 1200px) {
+  .td-summary-content { gap: 8px; }
+  .td-summary-input { width: 110px; } /* date input width */
+}
+@media (max-width: 992px) {
+  .td-summary-content { gap: 6px; }
+  .td-summary-input { width: 100px; }
 }
 </style>
 
