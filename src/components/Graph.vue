@@ -12,35 +12,32 @@
         <span class="td-summary-value">{{ threadStats.notTested }}</span>
         <span class="td-summary-label">Completion:</span>
         <span class="td-summary-value">{{ threadStats.completion }}%</span>
-        <span class="td-summary-label">Target:</span>
+        <span class="td-summary-label">Target days:</span>
         <input type="number" min="1" v-model.number="userTargetDays" class="td-summary-input" style="width:60px;" />
-        <span class="td-summary-label">days</span>
         <span class="td-summary-label">Started:</span>
         <input type="date" v-model="userStartedDate" class="td-summary-input" style="width:140px;" />
         <span class="td-summary-label">Remaining:</span>
         <span class="td-summary-value">{{ timeStats.remainingDays }} days pending</span>
-        <button class="btn btn-sm btn-outline-primary td-import-btn" @click="openImportModal" :title="$t('threatmodel.importThreats.title')">
+        <button class="btn btn-sm btn-outline-primary td-import-btn" @click="openImportModal"
+          :title="$t('threatmodel.importThreats.title')">
           <font-awesome-icon icon="upload" class="mr-1"></font-awesome-icon>
           {{ $t('threatmodel.importThreats.title') }}
         </button>
-        <button class="btn btn-sm btn-outline-success td-export-btn" @click="openExportModal" :title="$t('threatmodel.exportThreats.tooltip')">
+        <button class="btn btn-sm btn-outline-success td-export-btn" @click="openExportModal"
+          :title="$t('threatmodel.exportThreats.tooltip')">
           <font-awesome-icon icon="download" class="mr-1"></font-awesome-icon>
           {{ $t('threatmodel.exportThreats.title') }}
         </button>
-        <button class="btn btn-sm btn-outline-info td-import-process-btn" @click="openProcessImportModal" :title="$t('threatmodel.importProcesses.title')">
+        <button class="btn btn-sm btn-outline-info td-import-process-btn" @click="openProcessImportModal"
+          :title="$t('threatmodel.importProcesses.title')">
           <font-awesome-icon icon="plus" class="mr-1"></font-awesome-icon>
           {{ $t('threatmodel.importProcesses.title') }}
         </button>
       </div>
 
       <!-- ⬇️ Keep your button; bind aria-expanded for accessibility -->
-      <button
-        class="td-summary-toggle"
-        :aria-expanded="(!isCollapsed).toString()"
-        aria-controls="td-summary-content"
-        title="Collapse/Expand summary"
-        @click="isCollapsed = !isCollapsed"
-      >
+      <button class="td-summary-toggle" :aria-expanded="(!isCollapsed).toString()" aria-controls="td-summary-content"
+        title="Collapse/Expand summary" @click="isCollapsed = !isCollapsed">
         {{ isCollapsed ? '▸' : '▾' }}
       </button>
     </div>
@@ -79,20 +76,15 @@
     </div>
 
     <!-- ✅ Redesigned reminder toast (non-intrusive, auto-hide, accessible) -->
-    <div
-      v-if="showReminder"
-      class="save-toast"
-      role="status"
-      aria-live="polite"
-      @mouseenter="pauseToast"
-      @mouseleave="resumeToast"
-    >
+    <div v-if="showReminder" class="save-toast" role="status" aria-live="polite" @mouseenter="pauseToast"
+      @mouseleave="resumeToast">
       <div class="save-toast__icon" aria-hidden="true">💾</div>
       <div class="save-toast__body">
         <div class="save-toast__title">Remember to save your work</div>
         <div class="save-toast__text">Unsaved changes may be lost.</div>
         <div class="save-toast__progress">
-          <div class="save-toast__bar" :style="{ width: progress + '%' }"></div>
+          <div class="save-toast__bar" role="progressbar" :aria-valuemin="0" :aria-valuemax="100"
+            :aria-valuenow="toastPaused ? undefined : undefined"></div>
         </div>
       </div>
       <button class="save-toast__close" @click="closeReminder" aria-label="Dismiss reminder">✕</button>
@@ -103,7 +95,8 @@
 <style lang="scss" scoped>
 /* Base bar styles (original look + grid layout to prevent clipping) */
 .td-summary-bar {
-  position: sticky; /* sticky by default */
+  position: sticky;
+  /* sticky by default */
   top: 0;
   z-index: 1000;
 
@@ -131,7 +124,8 @@
   left: 0;
   right: 0;
   margin: 0;
-  border-radius: 0; /* optional */
+  border-radius: 0;
+  /* optional */
 }
 
 /* Horizontal content layout */
@@ -144,7 +138,8 @@
   /* Smooth collapse */
   transition: max-height 0.25s ease, opacity 0.25s ease;
   overflow: hidden;
-  max-height: 240px; /* ensure this is >= your actual content height */
+  max-height: 240px;
+  /* ensure this is >= your actual content height */
 
   /* Let this area shrink and wrap instead of clipping */
   min-width: 0;
@@ -152,9 +147,10 @@
   flex-wrap: wrap;
 }
 
-.td-summary-content > * {
+.td-summary-content>* {
   width: auto;
-  white-space: nowrap; /* keep inline controls from splitting */
+  white-space: nowrap;
+  /* keep inline controls from splitting */
 }
 
 /* Collapsed state */
@@ -174,6 +170,7 @@
   font-weight: 600;
   color: #333;
 }
+
 .td-summary-toggle:focus {
   outline: 2px solid #5b9dd9;
   outline-offset: 2px;
@@ -189,6 +186,7 @@
   font-weight: 700;
   margin-right: 4px;
 }
+
 .td-summary-value {
   color: #222;
   font-weight: 700;
@@ -214,11 +212,13 @@
   min-height: 60vh;
   height: 100%;
 }
+
 .b-col {
   height: 100%;
   display: flex;
   font-size: 1em;
 }
+
 .b-col {
   height: 100%;
   display: flex;
@@ -252,7 +252,7 @@
   border-width: 1.5px;
   background: #fff;
   transition: all 0.18s ease-in-out;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
 /* Primary (Import) */
@@ -260,6 +260,7 @@
   border-color: #0b7bb0;
   color: #0b7bb0;
 }
+
 .td-import-btn:hover {
   background: #0b7bb0;
   color: white;
@@ -270,6 +271,7 @@
   border-color: #28a745;
   color: #28a745;
 }
+
 .td-export-btn:hover {
   background: #28a745;
   color: white;
@@ -280,6 +282,7 @@
   border-color: #17a2b8;
   color: #17a2b8;
 }
+
 .td-import-process-btn:hover {
   background: #17a2b8;
   color: white;
@@ -305,15 +308,22 @@
   color: #1f2328;
   border: 1px solid rgba(12, 12, 13, 0.08);
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
   padding: 12px 12px 10px 12px;
 
   animation: toast-in 160ms ease-out both;
 }
 
 @keyframes toast-in {
-  from { opacity: 0; transform: translate3d(0, 12px, 0); }
-  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .save-toast__icon {
@@ -356,6 +366,7 @@
   border-radius: 999px;
   overflow: hidden;
 }
+
 .save-toast__bar {
   height: 100%;
   background: linear-gradient(90deg, #0b7bb0, #28a745);
@@ -375,10 +386,12 @@
   cursor: pointer;
   border-radius: 6px;
 }
+
 .save-toast__close:hover {
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   color: #111827;
 }
+
 .save-toast__close:focus {
   outline: 2px solid #5b9dd9;
   outline-offset: 2px;
@@ -386,8 +399,13 @@
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .save-toast { animation: none; }
-  .save-toast__bar { transition: none; }
+  .save-toast {
+    animation: none;
+  }
+
+  .save-toast__bar {
+    transition: none;
+  }
 }
 
 /* Optional dark mode (if body/class toggles a dark theme) */
@@ -395,81 +413,48 @@
 :deep([data-theme="dark"]) .save-toast {
   background: #1f2937;
   color: #e5e7eb;
-  border-color: rgba(255,255,255,0.08);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
+
 :deep(.dark) .save-toast__icon,
 :deep([data-theme="dark"]) .save-toast__icon {
   background: #083B55;
   color: #b9e6ff;
 }
+
 :deep(.dark) .save-toast__text,
 :deep([data-theme="dark"]) .save-toast__text {
   color: #cbd5e1;
 }
+
 :deep(.dark) .save-toast__progress,
 :deep([data-theme="dark"]) .save-toast__progress {
   background: #334155;
 }
+
+.save-toast__bar {
+  height: 100%;
+  background: linear-gradient(90deg, #0b7bb0, #28a745);
+  width: 0%;
+  animation: toast-progress var(--toast-duration, 6000ms) linear forwards;
+}
+
+@keyframes toast-progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+/* Pause animation on hover of toast */
+.save-toast:hover .save-toast__bar {
+  animation-play-state: paused;
+}
 </style>
-
-<script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-/* ⬇️ local reactive state to control collapse */
-const isCollapsed = ref(false);
-
-/* ✅ Toast controls (non-intrusive save reminder) */
-const progress = ref(0);
-const toastPaused = ref(false);
-let toastTimerId = null;
-let toastTickId = null;
-const TOAST_DURATION_MS = 6000; // total visible time
-const TICK_MS = 120;            // UI refresh cadence
-
-function startToastTimers() {
-  clearToastTimers();
-
-  const startedAt = Date.now();
-  toastTickId = window.setInterval(() => {
-    if (toastPaused.value) return;
-    const elapsed = Date.now() - startedAt;
-    progress.value = Math.min(100, Math.round((elapsed / TOAST_DURATION_MS) * 100));
-  }, TICK_MS);
-
-  toastTimerId = window.setTimeout(() => {
-    closeReminder();
-  }, TOAST_DURATION_MS);
-}
-
-function clearToastTimers() {
-  if (toastTimerId) { clearTimeout(toastTimerId); toastTimerId = null; }
-  if (toastTickId) { clearInterval(toastTickId); toastTickId = null; }
-}
-
-function pauseToast() {
-  toastPaused.value = true;
-  clearToastTimers(); // stop both countdown and progress while hovered
-}
-
-function resumeToast() {
-  toastPaused.value = false;
-  // resume from current progress for the remaining time
-  const remaining = Math.max(0, Math.round((1 - progress.value / 100) * TOAST_DURATION_MS));
-  const startedAt = Date.now() - (progress.value / 100) * TOAST_DURATION_MS;
-
-  toastTickId = window.setInterval(() => {
-    const elapsed = Date.now() - startedAt;
-    progress.value = Math.min(100, Math.round((elapsed / TOAST_DURATION_MS) * 100));
-  }, TICK_MS);
-
-  toastTimerId = window.setTimeout(() => {
-    closeReminder();
-  }, remaining || 1);
-}
-
-/* Expose/mirror your existing showReminder from Options API data()
-   (Vue will merge; here we just watch/drive timers on mount) */
-</script>
 
 <script>
 import TdGraphButtons from '@/components/GraphButtons.vue';
@@ -572,11 +557,25 @@ export default {
   },
   data() {
     return {
+      // Graph & UI
       graph: null,
+      isCollapsed: false,
+
+      // Reminder toast state
       showReminder: false,
+      progress: 0,
+      toastPaused: false,
       reminderIntervalId: null,
+      toastTimerId: null,
+      toastTickId: null,
+
+      // Toast timing (ms)
+      TOAST_DURATION_MS: 6000, // total visible time
+      // TICK_MS: 120,            // UI refresh cadence
+
+      // User inputs
       userTargetDays: 0,
-      userStartedDate: '',
+      userStartedDate: ''
     };
   },
   watch: {
@@ -588,42 +587,60 @@ export default {
           this.userStartedDate = newDiagram.userStartedDate || '';
         }
       }
+    },
+    // When the toast becomes visible, start its timers; when hidden, clear them.
+    showReminder(val) {
+      if (val) {
+        this.startToastTimers();
+      } else {
+        this.clearToastTimers();
+      }
     }
   },
   mounted() {
     this.init();
-    const diagramColor = this.diagram.color || '#fdfcfc';
+
+    const diagramColor = (this.diagram && this.diagram.color) || '#fdfcfc';
     this.setToolColor(diagramColor);
+
     this.showReminder = false;
 
-    // Show reminder every 5 minutes (existing behavior)
+    // Show reminder periodically (NOTE: set to 1000ms per your pasted code; change to 300000 for 5 minutes)
     this.reminderIntervalId = window.setInterval(() => {
+      // Toggle to restart the toast and progress
       this.showReminder = false;
       this.$nextTick(() => {
+        this.progress = 0;      // reset bar
+        this.toastPaused = false;
         this.showReminder = true;
-        // start toast timers when it appears
-        if (typeof window.startToastTimers === 'function') window.startToastTimers(); // no-op safety
       });
-    }, 5 * 60 * 1000);
-
-    // Attach the toast starter from <script setup> into window-less scope safely
-    // (avoids mixing options <-> setup; but we’ll dispatch via a local method below)
-    this.$nextTick(() => {
-      // local starter: kicks off progress + auto-dismiss
-      this._startLocalToast && this._startLocalToast();
-    });
+    }, 5* 60 * 1000);
+  },
+  beforeDestroy() {
+    diagramService.dispose(this.graph);
+    if (this.reminderIntervalId) {
+      clearInterval(this.reminderIntervalId);
+      this.reminderIntervalId = null;
+    }
+    this.clearToastTimers();
   },
   methods: {
+    /* =====================
+       Graph & App Methods
+       ===================== */
     init() {
       this.graph = diagramService.edit(this.$refs.graph_container, this.diagram);
       stencil.get(this.graph, this.$refs.stencil_container);
       this.$store.dispatch(tmActions.notModified);
-      this.graph.getPlugin('history').on('change', () => {
-        const updated = Object.assign({}, this.diagram);
-        updated.cells = [...this.graph.toJSON().cells];
-        this.$store.dispatch(tmActions.diagramModified, updated);
-        this.$forceUpdate();
-      });
+      const history = this.graph.getPlugin('history');
+      if (history && typeof history.on === 'function') {
+        history.on('change', () => {
+          const updated = Object.assign({}, this.diagram);
+          updated.cells = [...this.graph.toJSON().cells];
+          this.$store.dispatch(tmActions.diagramModified, updated);
+          this.$forceUpdate();
+        });
+      }
     },
     threatSelected(threatId, state) {
       this.$refs.threatEditDialog.editThreat(threatId, state);
@@ -749,52 +766,96 @@ export default {
         centered: true
       });
     },
+
+    /* =====================
+   Toast & Reminder (CSS-animation driven)
+   ===================== */
+    startToastTimers() {
+      this.clearToastTimers();
+
+      // Ensure DOM for the toast is mounted before touching elements
+      this.$nextTick(() => {
+        const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+        if (bar) {
+          // Set/update the CSS variable for duration (must match TOAST_DURATION_MS)
+          bar.style.setProperty('--toast-duration', `${this.TOAST_DURATION_MS}ms`);
+
+          // Restart the CSS animation from 0 -> 100
+          bar.style.animation = 'none';
+          // Force reflow so the browser registers the change
+          // eslint-disable-next-line no-unused-expressions
+          bar.offsetWidth;
+          bar.style.animation = '';
+          // Ensure running state at start
+          bar.style.animationPlayState = 'running';
+        }
+
+        // Timing bookkeeping for precise pause/resume
+        this.toastPaused = false;
+        this._toastStartTs = Date.now();                 // when current run started
+        this._toastRemainingMs = this.TOAST_DURATION_MS; // countdown we’ll adjust on pause
+
+        // Single timeout to auto-dismiss
+        this.toastTimerId = window.setTimeout(() => {
+          this.closeReminder();
+        }, this._toastRemainingMs);
+      });
+    },
+
+    clearToastTimers() {
+      if (this.toastTimerId) {
+        clearTimeout(this.toastTimerId);
+        this.toastTimerId = null;
+      }
+    },
+
+    pauseToast() {
+      if (this.toastPaused) return;
+      this.toastPaused = true;
+
+      const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+      if (bar) {
+        bar.style.animationPlayState = 'paused';
+      }
+
+      if (this._toastStartTs) {
+        const elapsed = Date.now() - this._toastStartTs;
+        this._toastRemainingMs = Math.max(0, this._toastRemainingMs - elapsed);
+      }
+
+      this.clearToastTimers();
+    },
+
+    resumeToast() {
+      if (!this.toastPaused) return;
+      this.toastPaused = false;
+
+      const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+      if (bar) {
+        bar.style.animationPlayState = 'running';
+      }
+
+      this._toastStartTs = Date.now();
+      const remaining = Math.max(0, this._toastRemainingMs || 0);
+      this.toastTimerId = window.setTimeout(() => {
+        this.closeReminder();
+      }, remaining || 1);
+    },
+
     closeReminder() {
       this.showReminder = false;
-      // also ensure timers are cleared if user dismisses
-      if (this._clearLocalToast) this._clearLocalToast();
-    },
+      this.clearToastTimers();
 
-    /* 🔗 Small glue to call setup-timers without refactoring component */
-    _startLocalToast() {
-      // define functions on window-less closure via DOM timers already present
-      if (typeof window === 'undefined') return;
-      // no-ops; actual logic lives in <script setup> via injected globals below
-      if (window.__td_startToast) window.__td_startToast();
-    },
-    _clearLocalToast() {
-      if (typeof window === 'undefined') return;
-      if (window.__td_clearToast) window.__td_clearToast();
+      // Optional: reset bar so next show animates cleanly from start
+      const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+      if (bar) {
+        bar.style.animation = 'none';
+        // eslint-disable-next-line no-unused-expressions
+        bar.offsetWidth;
+        bar.style.animation = '';
+        bar.style.removeProperty('--toast-duration');
+      }
     }
-  },
-  destroyed() {
-    diagramService.dispose(this.graph);
-    if (this.reminderIntervalId) {
-      clearInterval(this.reminderIntervalId);
-      this.reminderIntervalId = null;
-    }
-    // clear toast timers on destroy
-    if (this._clearLocalToast) this._clearLocalToast();
   }
 };
-</script>
-
-<script setup>
-// Wire the toast timers from <script setup> into Options API methods without refactor
-// (keeps this a safe patch).
-if (typeof window !== 'undefined') {
-  // expose starters/clearers for the Options API to call
-  window.__td_startToast = () => {
-    // showReminder is managed by Options API; when it's true, start timers
-    // We defensively look for the toast container before starting
-    const el = document.querySelector('.save-toast');
-    if (!el) return;
-    // @ts-ignore - these come from the first <script setup> block
-    if (typeof startToastTimers === 'function') startToastTimers();
-  };
-  window.__td_clearToast = () => {
-    // @ts-ignore
-    if (typeof clearToastTimers === 'function') clearToastTimers();
-  };
-}
 </script>
