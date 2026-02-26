@@ -178,12 +178,8 @@ export default {
                     this.validationErrors.push(`Process ${index}: Missing required field "name"`);
                     hasErrors = true;
                 }
-                if (!process.url) {
-                    this.validationErrors.push(`Process ${index}: Missing required field "url"`);
-                    hasErrors = true;
-                }
-                if (!process.parameters) {
-                    this.validationErrors.push(`Process ${index}: Missing required field "parameters"`);
+                if (!process.description) {
+                    this.validationErrors.push(`Process ${index}: Missing required field "description"`);
                     hasErrors = true;
                 }
             });
