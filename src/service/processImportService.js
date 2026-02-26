@@ -200,9 +200,9 @@ export const importProcesses = (diagram, importData) => {
         importData.processes.forEach((processData, index) => {
             try {
                 // Validate process data
-                if (!processData.name || !processData.url || !processData.parameters) {
+                if (!processData.name || !processData.description) {
                     result.errors.push(
-                        `Process ${index}: Missing required fields (name, endpoint, parameter)`
+                        `Process ${index}: Missing required fields (name, description)`
                     );
                     return;
                 }
