@@ -75,7 +75,7 @@
               <b-form-select
                 id="urlMethod"
                 v-model="cellRef.data.method"
-                :options="['GET', 'POST']"
+                :options="['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']"
                 class="w-auto text-white bg-danger custom-select-bg"
                 @change="onChangeProperties()"
               ></b-form-select>

@@ -5,7 +5,7 @@
 
 /**
  * Extract process nodes from diagram
- * Returns array of {id, name, description, type}
+ * Returns array of {id, name, description, type, url, method, parameters}
  * @param {object} diagram - The diagram containing cells
  * @returns {array} - Array of process objects
  */
@@ -26,6 +26,9 @@ export const extractProcesses = (diagram) => {
             name: cell.data.name || '',
             description: cell.data.description || '',
             type: cell.data.type || '',
+            url: cell.data.url || '',
+            method: cell.data.method || '',
+            parameters: cell.data.parameters || '',
             threats: Array.isArray(cell.data.threats) ? cell.data.threats.length : 0
         }));
 };
