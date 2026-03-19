@@ -326,10 +326,12 @@ export default {
         deleteThreat() {
             if(!this.threat.new){
                 const threatMap = this.cellRef.data.threatFrequency;
-                Object.keys(threatMap).forEach((k)=>{
-                    if(this.$t(`threats.model.${this.threat.modelType.toLowerCase()}.${k}`)===this.threat.type)
-                        threatMap[k]--;
-                });
+                if (threatMap) {
+                    Object.keys(threatMap).forEach((k)=>{
+                        if(this.$t(`threats.model.${this.threat.modelType.toLowerCase()}.${k}`)===this.threat.type)
+                            threatMap[k]--;
+                    });
+                }
             }
             this.cellRef.data.threats = this.cellRef.data.threats.filter(x => x.id !== this.threat.id);
             this.cellRef.data.hasOpenThreats = this.cellRef.data.threats.length > 0;
