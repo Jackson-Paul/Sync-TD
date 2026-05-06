@@ -131,20 +131,48 @@ export const findMatchingNode = (diagram, nodeName) => {
 
 /**
  * Find a matching node in the diagram by id
+ * Supports both UUID format (e.g., "4e6a7c1e-2ac4-499a-9999-289e958c49ab") 
+ * and process format (e.g., "process_1777377939314_v1bbam1i6")
+ * Checks both cell.id and cell.data.id to handle all ID formats
  * @param {object} diagram - The diagram containing cells
- * @param {string} id - The node name to match
+ * @param {string} id - The node ID to match (UUID or process format)
  * @returns {object|null} - The matching node cell or null
  */
 export const findMatchingNodebyID = (diagram, id) => {
     if (!diagram || !diagram.cells || !id) return null;
     
+    // Try exact match first (case-sensitive) - check both cell.id and cell.data.id
+    let found = diagram.cells.find(cell => 
+        (cell.id === id) || (cell.data && cell.data.id === id)
+    );
+    if (found) return found;
     
-    return diagram.cells.find(cell => {
-        if (!cell.data || !cell.data.id) return false;
-        
-        const cellid = canonicalizeName(cell.data.id);
-        return cellid === id;
+    // Try case-insensitive match
+    const lowerCaseId = id.toLowerCase();
+    found = diagram.cells.find(cell => {
+        const cellIdMatch = cell.id && cell.id.toLowerCase() === lowerCaseId;
+        const cellDataIdMatch = cell.data && cell.data.id && cell.data.id.toLowerCase() === lowerCaseId;
+        return cellIdMatch || cellDataIdMatch;
     });
+    if (found) return found;
+    
+    // Try canonicalized match (removes special chars, normalizes spacing)
+    const canonicalizedImportId = canonicalizeName(id);
+    found = diagram.cells.find(cell => {
+        // Check canonicalized cell.id
+        const cellId = cell.id ? canonicalizeName(cell.id) : '';
+        if (cellId === canonicalizedImportId) return true;
+        
+        // Check canonicalized cell.data.id
+        if (cell.data && cell.data.id) {
+            const cellDataId = canonicalizeName(cell.data.id);
+            if (cellDataId === canonicalizedImportId) return true;
+        }
+        
+        return false;
+    });
+    
+    return found || null;
 };
 
 
@@ -173,6 +201,18 @@ export const createThreatObject = (importedThreat, threatId, modelType) => {
 };
 
 /**
+ * Get all available cell IDs in a diagram
+ * @param {object} diagram - The diagram
+ * @returns {array} - Array of all cell IDs
+ */
+export const getAvailableCellIds = (diagram) => {
+    if (!diagram || !diagram.cells) return [];
+    return diagram.cells
+        .filter(cell => cell.data && cell.data.id)
+        .map(cell => cell.data.id);
+};
+
+/**
  * Import threats into a diagram
  * Matches threats to flows/nodes and returns summary with matched/unmatched
  * @param {object} diagram - The diagram to import into
@@ -192,6 +232,7 @@ export const importThreats = (diagram, importData) => {
     }
     
     const modelType = diagram.diagramType || 'STRIDE';
+    const availableIds = getAvailableCellIds(diagram);
     
     importData.threats.forEach((threat, index) => {
         try {
@@ -205,69 +246,36 @@ export const importThreats = (diagram, importData) => {
                 return;
             }
 
-            
+            if (!data.id) {
+                result.unmatched.push({
+                    title: data.title || `Threat ${index}`,
+                    reason: 'Threat missing required ID field'
+                });
+                return;
+            }
             
             let targetCell = null;
             let targetType = '';
 
-
-            targetCell = findMatchingNodebyID(diagram, data.id)
+            targetCell = findMatchingNodebyID(diagram, data.id);
             if (!targetCell) {
                 result.unmatched.push({
                     title: data.title,
-                    reason: `No cell found matching ${target.id}`
+                    reason: `No cell found matching ID: ${data.id}. Available IDs: ${availableIds.join(', ')}`
                 });
+
                 return;
             }
 
+            // Validate cell structure
+            if (!targetCell.data) {
+                result.unmatched.push({
+                    title: data.title,
+                    reason: `Matched cell has no data property`
+                });
 
-            
-            // // Match based on target.by
-            // if (target.by === 'flow') {
-            //     if (!target.method || !target.path) {
-            //         result.unmatched.push({
-            //             title: data.title || `Threat ${index}`,
-            //             reason: 'Flow target requires method and path'
-            //         });
-            //         return;
-            //     }
-                
-            //     targetCell = findMatchingFlow(diagram, target.method, target.path);
-            //     targetType = 'flow';
-                
-            //     if (!targetCell) {
-            //         result.unmatched.push({
-            //             title: data.title,
-            //             reason: `No flow found matching ${target.method} ${target.path}`
-            //         });
-            //         return;
-            //     }
-            // } else if (target.by === 'node') {
-            //     if (!target.nodeName) {
-            //         result.unmatched.push({
-            //             title: data.title || `Threat ${index}`,
-            //             reason: 'Node target requires nodeName'
-            //         });
-            //         return;
-            //     }
-                
-            //     targetCell = findMatchingNode(diagram, target.nodeName);
-            //     targetType = 'node';
-                
-            //     if (!targetCell) {
-            //         result.unmatched.push({
-            //             title: data.title,
-            //             reason: `No node found matching "${target.nodeName}"`
-            //         });
-            //         return;
-            //     }
-            // } else {
-            //     result.unmatched.push({
-            //         title: data.title || `Threat ${index}`,
-            //         reason: `Invalid target type: ${target.by}`
-            //     });
-            //     return;
-            // }
+                return;
+            }
             
             // Generate threat ID
             const threatId = generateThreatId(
@@ -301,10 +309,11 @@ export const importThreats = (diagram, importData) => {
                 });
             }
         } catch (error) {
+            console.error(`Error importing threat ${index}:`, error);
             result.errors.push(`Error importing threat ${index}: ${error.message}`);
         }
     });
-    
+
     return result;
 };
 
@@ -315,6 +324,8 @@ export default {
     mapSeverity,
     findMatchingFlow,
     findMatchingNode,
+    findMatchingNodebyID,
+    getAvailableCellIds,
     createThreatObject,
     importThreats
 };
