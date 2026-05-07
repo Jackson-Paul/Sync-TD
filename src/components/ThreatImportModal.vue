@@ -141,12 +141,22 @@ export default {
     "threats": [
         {
             "data": {
-                "id": "guid given as input",
+                "id": "4e6a7c1e-2ac4-499a-9999-289e958c49ab",
                 "title": "Unauthorized access",
                 "severity": "high",
                 "category": "Elevation of Privilege",
                 "description": "Potential bypass of auth.",
                 "mitigation" : "add proper server side authorization"
+            }
+        },
+        {
+            "data": {
+                "id": "process_1777377939314_v1bbam1i6",
+                "title": "SQL Injection Attack",
+                "severity": "critical",
+                "category": "Tampering",
+                "description": "Attacker can inject SQL code.",
+                "mitigation" : "Use parameterized queries"
             }
         }
     ]
