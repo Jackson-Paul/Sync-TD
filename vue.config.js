@@ -137,8 +137,16 @@ module.exports = {
                 options.image = 'xlink:href';
                 options['b-img'] = 'src';
                 options['b-img-lazy'] = ['src', 'blank-src'];
+                options.compilerOptions = {
+                    isCustomElement: tag => {
+                        return tag.startsWith('mxc-') || tag === 'svg';
+                    }
+                };
                 return options;
             });
+        // Disable TypeScript loader to prevent JSX type checking errors
+        config.module.rules.delete('ts');
+        config.module.rules.delete('tsx');
     },
     configureWebpack: {
         devtool: 'source-map',

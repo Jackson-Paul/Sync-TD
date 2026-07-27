@@ -13,9 +13,9 @@
         <span class="td-summary-label">Completion:</span>
         <span class="td-summary-value">{{ threadStats.completion }}%</span>
         <span class="td-summary-label">Target days:</span>
-        <input type="number" min="1" v-model.number="userTargetDays" class="td-summary-input" style="width:60px;" />
+        <input type="number" min="1" v-model.number="userTargetDays" class="td-summary-input" style="width:60px;" :disabled="userTargetDays > 0" />
         <span class="td-summary-label">Started:</span>
-        <input type="date" v-model="userStartedDate" class="td-summary-input" style="width:140px;" />
+        <input type="date" v-model="userStartedDate" class="td-summary-input" style="width:140px;" :disabled="userStartedDate !== ''" />
         <span class="td-summary-label">Remaining:</span>
         <span class="td-summary-value">{{ timeStats.remainingDays }} days pending</span>
         <button class="btn btn-sm btn-outline-primary td-import-btn" @click="openImportModal"
@@ -32,6 +32,17 @@
           :title="$t('threatmodel.importProcesses.title')">
           <font-awesome-icon icon="plus" class="mr-1"></font-awesome-icon>
           {{ $t('threatmodel.importProcesses.title') }}
+        </button>
+        <button class="btn btn-sm btn-outline-warning td-merge-diagram-btn" @click="openMergeModal"
+          title="Merge another diagram into this one">
+          <font-awesome-icon icon="project-diagram" class="mr-1"></font-awesome-icon>
+          Merge DFD
+        </button>
+        <button class="btn btn-sm btn-outline-danger td-pentesting-btn" @click="enablePentestingStart"
+          :disabled="isPenttestingStarted"
+          :title="isPenttestingStarted ? 'Pentesting already started' : 'Enable pentesting with 20 threats per day target'">
+          <font-awesome-icon icon="bullseye" class="mr-1"></font-awesome-icon>
+          {{ $t('threatmodel.pentestingStart.button') }}
         </button>
       </div>
 
@@ -73,6 +84,7 @@
       <td-threat-import-modal ref="threatImportModal" @import-threats="handleImportThreats" />
       <td-threat-export-modal ref="threatExportModal" :diagram="diagram" />
       <td-process-import-modal ref="processImportModal" @import-processes="handleImportProcesses" />
+      <td-diagram-merge-modal ref="diagramMergeModal" @merge-diagrams="handleMergeDiagrams" />
     </div>
 
     <!-- ✅ Redesigned reminder toast (non-intrusive, auto-hide, accessible) -->
@@ -288,6 +300,24 @@
   color: white;
 }
 
+/* Danger (Pentesting Start) */
+.td-pentesting-btn {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.td-pentesting-btn:hover:not(:disabled) {
+  background: #dc3545;
+  color: white;
+}
+
+.td-pentesting-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #999;
+}
+
 /* ===============================
    ✅ Redesigned Save Reminder Toast
    =============================== */
@@ -465,397 +495,481 @@ import TdThreatSuggestDialog from './ThreatSuggestDialog.vue';
 import TdThreatImportModal from '@/components/ThreatImportModal.vue';
 import TdThreatExportModal from '@/components/ThreatExportModal.vue';
 import TdProcessImportModal from '@/components/ProcessImportModal.vue';
+import TdDiagramMergeModal from '@/components/DiagramMergeModal.vue';
 
 import diagramService from '@/service/migration/diagram.js';
+import { mergeDiagrams } from '@/service/diagramMergeService.js';
 import stencil from '@/service/x6/stencil.js';
 import tmActions from '@/store/actions/threatmodel.js';
 import threatImportService from '@/service/threatImportService.js';
 import processImportService from '@/service/processImportService.js';
 
 export default {
-  name: 'TdGraph',
-  components: {
-    TdGraphButtons,
-    TdGraphMeta,
-    TdKeyboardShortcuts,
-    TdThreatEditDialog,
-    TdThreatSuggestDialog,
-    TdThreatImportModal,
-    TdThreatExportModal,
-    TdProcessImportModal
-  },
-  computed: {
-    diagram() {
-      return this.$store.state.threatmodel.selectedDiagram;
+    name: 'TdGraph',
+    components: {
+        TdGraphButtons,
+        TdGraphMeta,
+        TdKeyboardShortcuts,
+        TdThreatEditDialog,
+        TdThreatSuggestDialog,
+        TdThreatImportModal,
+        TdThreatExportModal,
+        TdProcessImportModal,
+        TdDiagramMergeModal
     },
-    providerType() {
-      const selected = this.$store.state.provider.selected;
-      return selected && selected.type ? selected.type : '';
-    },
-    threadStats() {
-      if (!this.diagram || !Array.isArray(this.diagram.cells)) {
-        return {
-          total: 0,
-          tested: 0,
-          notTested: 0,
-          completion: 0,
-          bugTotal: 0,
-          bugCompleted: 0,
-          bugNotCompleted: 0
-        };
-      }
-      const threats = this.diagram.cells.reduce((arr, cell) => {
-        if (cell.data && Array.isArray(cell.data.threats)) {
-          return arr.concat(cell.data.threats);
+    computed: {
+        diagram() {
+            return this.$store.state.threatmodel.selectedDiagram;
+        },
+        providerType() {
+            const selected = this.$store.state.provider.selected;
+            return selected && selected.type ? selected.type : '';
+        },
+        threadStats() {
+            if (!this.diagram || !Array.isArray(this.diagram.cells)) {
+                return {
+                    total: 0,
+                    tested: 0,
+                    notTested: 0,
+                    completion: 0,
+                    bugTotal: 0,
+                    bugCompleted: 0,
+                    bugNotCompleted: 0
+                };
+            }
+            const threats = this.diagram.cells.reduce((arr, cell) => {
+                if (cell.data && Array.isArray(cell.data.threats)) {
+                    return arr.concat(cell.data.threats);
+                }
+                return arr;
+            }, []);
+            if (!threats || threats.length === 0) {
+                return {
+                    total: 0,
+                    tested: 0,
+                    notTested: 0,
+                    completion: 0,
+                    bugTotal: 0,
+                    bugCompleted: 0,
+                    bugNotCompleted: 0
+                };
+            }
+            const total = threats.length;
+            const tested = threats.filter(
+                t => (t.status === 'Mitigated' && t.testedOn) || (t.status === 'Open' && t.testedOn && t.severity !== 'TBD')
+            ).length;
+            const notTested = Math.round(total - tested);
+            const completion = total > 0 ? Math.round((tested / total) * 100) : 0;
+            return {
+                total,
+                tested,
+                notTested,
+                completion,
+                bugTotal: 0,
+                bugCompleted: 0,
+                bugNotCompleted: 0
+            };
+        },
+        timeStats() {
+            const targetDays = this.userTargetDays > 0 ? this.userTargetDays : 1;
+            let remainingDays = targetDays;
+            let startedAt = this.userStartedDate;
+            if (startedAt) {
+                const startDate = new Date(startedAt);
+                const now = new Date();
+                const diffMs = now.setHours(0, 0, 0, 0) - startDate.setHours(0, 0, 0, 0);
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                remainingDays = Math.max(targetDays - diffDays, 0);
+                startedAt = startDate.toLocaleDateString();
+            } else {
+                startedAt = 'Not set';
+                remainingDays = targetDays;
+            }
+            return { targetDays, remainingDays, startedAt };
         }
-        return arr;
-      }, []);
-      if (!threats || threats.length === 0) {
+    },
+    data() {
         return {
-          total: 0,
-          tested: 0,
-          notTested: 0,
-          completion: 0,
-          bugTotal: 0,
-          bugCompleted: 0,
-          bugNotCompleted: 0
+            // Graph & UI
+            graph: null,
+            isCollapsed: false,
+
+            // Reminder toast state
+            showReminder: false,
+            progress: 0,
+            toastPaused: false,
+            reminderIntervalId: null,
+            toastTimerId: null,
+            toastTickId: null,
+
+            // Toast timing (ms)
+            TOAST_DURATION_MS: 6000, // total visible time
+            // TICK_MS: 120,            // UI refresh cadence
+
+            // User inputs
+            userTargetDays: 0,
+            userStartedDate: '',
+            isPenttestingStarted: false,
+            penttestingStartData: null
         };
-      }
-      const total = threats.length;
-      const tested = threats.filter(
-        t => (t.status === 'Mitigated' && t.testedOn) || (t.status === 'Open' && t.testedOn && t.severity !== 'TBD')
-      ).length;
-      const notTested = Math.round(total - tested);
-      const completion = total > 0 ? Math.round((tested / total) * 100) : 0;
-      return {
-        total,
-        tested,
-        notTested,
-        completion,
-        bugTotal: 0,
-        bugCompleted: 0,
-        bugNotCompleted: 0
-      };
     },
-    timeStats() {
-      const targetDays = this.userTargetDays > 0 ? this.userTargetDays : 1;
-      let remainingDays = targetDays;
-      let startedAt = this.userStartedDate;
-      if (startedAt) {
-        const startDate = new Date(startedAt);
-        const now = new Date();
-        const diffMs = now.setHours(0, 0, 0, 0) - startDate.setHours(0, 0, 0, 0);
-        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-        remainingDays = Math.max(targetDays - diffDays, 0);
-        startedAt = startDate.toLocaleDateString();
-      } else {
-        startedAt = 'Not set';
-        remainingDays = targetDays;
-      }
-      return { targetDays, remainingDays, startedAt };
-    }
-  },
-  data() {
-    return {
-      // Graph & UI
-      graph: null,
-      isCollapsed: false,
-
-      // Reminder toast state
-      showReminder: false,
-      progress: 0,
-      toastPaused: false,
-      reminderIntervalId: null,
-      toastTimerId: null,
-      toastTickId: null,
-
-      // Toast timing (ms)
-      TOAST_DURATION_MS: 6000, // total visible time
-      // TICK_MS: 120,            // UI refresh cadence
-
-      // User inputs
-      userTargetDays: 0,
-      userStartedDate: ''
-    };
-  },
-  watch: {
-    diagram: {
-      immediate: true,
-      handler(newDiagram) {
-        if (newDiagram) {
-          this.userTargetDays = newDiagram.userTargetDays;
-          this.userStartedDate = newDiagram.userStartedDate || '';
+    watch: {
+        diagram: {
+            immediate: true,
+            handler(newDiagram) {
+                if (newDiagram) {
+                    this.userTargetDays = newDiagram.userTargetDays;
+                    this.userStartedDate = newDiagram.userStartedDate || '';
+                    this.isPenttestingStarted = !!newDiagram.userStartedDate;
+                    this.penttestingStartData = newDiagram.penttestingStartData || null;
+                }
+            }
+        },
+        // When the toast becomes visible, start its timers; when hidden, clear them.
+        showReminder(val) {
+            if (val) {
+                this.startToastTimers();
+            } else {
+                this.clearToastTimers();
+            }
         }
-      }
     },
-    // When the toast becomes visible, start its timers; when hidden, clear them.
-    showReminder(val) {
-      if (val) {
-        this.startToastTimers();
-      } else {
+    mounted() {
+        this.init();
+
+        const diagramColor = (this.diagram && this.diagram.color) || '#fdfcfc';
+        this.setToolColor(diagramColor);
+
+        this.showReminder = false;
+
+        // Show reminder periodically (NOTE: set to 1000ms per your pasted code; change to 300000 for 5 minutes)
+        this.reminderIntervalId = window.setInterval(() => {
+            // Toggle to restart the toast and progress
+            this.showReminder = false;
+            this.$nextTick(() => {
+                this.progress = 0;      // reset bar
+                this.toastPaused = false;
+                this.showReminder = true;
+            });
+        }, 5* 60 * 1000);
+    },
+    beforeDestroy() {
+        diagramService.dispose(this.graph);
+        if (this.reminderIntervalId) {
+            clearInterval(this.reminderIntervalId);
+            this.reminderIntervalId = null;
+        }
         this.clearToastTimers();
-      }
-    }
-  },
-  mounted() {
-    this.init();
-
-    const diagramColor = (this.diagram && this.diagram.color) || '#fdfcfc';
-    this.setToolColor(diagramColor);
-
-    this.showReminder = false;
-
-    // Show reminder periodically (NOTE: set to 1000ms per your pasted code; change to 300000 for 5 minutes)
-    this.reminderIntervalId = window.setInterval(() => {
-      // Toggle to restart the toast and progress
-      this.showReminder = false;
-      this.$nextTick(() => {
-        this.progress = 0;      // reset bar
-        this.toastPaused = false;
-        this.showReminder = true;
-      });
-    }, 5* 60 * 1000);
-  },
-  beforeDestroy() {
-    diagramService.dispose(this.graph);
-    if (this.reminderIntervalId) {
-      clearInterval(this.reminderIntervalId);
-      this.reminderIntervalId = null;
-    }
-    this.clearToastTimers();
-  },
-  methods: {
+    },
+    methods: {
     /* =====================
        Graph & App Methods
        ===================== */
-    init() {
-      this.graph = diagramService.edit(this.$refs.graph_container, this.diagram);
-      stencil.get(this.graph, this.$refs.stencil_container);
-      this.$store.dispatch(tmActions.notModified);
-      const history = this.graph.getPlugin('history');
-      if (history && typeof history.on === 'function') {
-        history.on('change', () => {
-          const updated = Object.assign({}, this.diagram);
-          updated.cells = [...this.graph.toJSON().cells];
-          this.$store.dispatch(tmActions.diagramModified, updated);
-          this.$forceUpdate();
-        });
-      }
-    },
-    threatSelected(threatId, state) {
-      this.$refs.threatEditDialog.editThreat(threatId, state);
-    },
-    threatSuggest(type) {
-      this.$refs.threatSuggestDialog.showModal(type);
-    },
-    openImportModal() {
-      this.$refs.threatImportModal.showModal();
-    },
-    openExportModal() {
-      this.$refs.threatExportModal.showModal();
-    },
-    openProcessImportModal() {
-      this.$refs.processImportModal.showModal();
-    },
-    handleImportProcesses(payload) {
-      const { data } = payload;
-      const diagram = this.diagram;
-      if (!diagram) {
-        this.$toast.error('No diagram selected');
-        return;
-      }
-      const history = this.graph.getPlugin('history');
-      let importResult;
-      if (history && history.batch) {
-        history.batch(() => {
-          importResult = processImportService.importProcesses(diagram, data);
-          if (importResult.matched.length > 0) {
-            this.graph.fromJSON(diagram);
-          }
-          const updated = Object.assign({}, diagram);
-          updated.cells = [...this.graph.toJSON().cells];
-          this.$store.dispatch(tmActions.diagramModified, updated);
-          this.$store.dispatch(tmActions.modified);
-        });
-      } else {
-        importResult = processImportService.importProcesses(diagram, data);
-        if (importResult.matched.length > 0) {
-          this.graph.fromJSON(diagram);
-        }
-        const updated = Object.assign({}, diagram);
-        updated.cells = [...this.graph.toJSON().cells];
-        this.$store.dispatch(tmActions.diagramModified, updated);
-        this.$store.dispatch(tmActions.modified);
-      }
-      if (importResult.matched.length > 0) {
-        this.$toast.success(`Imported ${importResult.matched.length} process(es)`);
-      }
-      if (importResult.errors.length > 0) {
-        const msg = importResult.errors.length === 1
-          ? importResult.errors[0]
-          : `${importResult.errors.length} error(s) occurred during import`;
-        this.$toast.error(msg);
-      }
-      this.$forceUpdate();
-    },
-    handleImportThreats(payload) {
-      const { data } = payload;
-      const diagram = this.diagram;
-      if (!diagram) {
-        this.$toast.error('No diagram selected');
-        return;
-      }
-      const history = this.graph.getPlugin('history');
-      let importResult;
-      if (history && history.batch) {
-        history.batch(() => {
-          importResult = threatImportService.importThreats(diagram, data);
-          const updated = Object.assign({}, diagram);
-          updated.cells = [...this.graph.toJSON().cells];
-          this.$store.dispatch(tmActions.diagramModified, updated);
-          this.$store.dispatch(tmActions.modified);
-        });
-      } else {
-        importResult = threatImportService.importThreats(diagram, data);
-        const updated = Object.assign({}, diagram);
-        updated.cells = [...this.graph.toJSON().cells];
-        this.$store.dispatch(tmActions.diagramModified, updated);
-        this.$store.dispatch(tmActions.modified);
-      }
-      if (importResult.matched.length > 0) {
-        this.$toast.success(`Imported ${importResult.matched.length} threat(s)`);
-      }
-      if (importResult.unmatched.length > 0) {
-        const msg = `${importResult.unmatched.length} threat(s) could not be matched and were skipped`;
-        this.$toast.warning(msg);
-      }
-      if (importResult.errors.length > 0) {
-        this.$toast.error(`${importResult.errors.length} error(s) occurred during import`);
-      }
-      this.$forceUpdate();
-    },
-    setToolColor(color) {
-      const container = this.$refs.graph_container;
-      if (container) {
-        container.style.background = color;
-      }
-    },
-    saved() {
-      const updated = Object.assign({}, this.diagram);
-      updated.cells = this.graph.toJSON().cells;
-      updated.userTargetDays = this.userTargetDays;
-      updated.userStartedDate = this.userStartedDate;
-      this.$store.dispatch(tmActions.diagramSaved, updated);
-      this.$store.dispatch(tmActions.saveModel);
-      localStorage.setItem('showReminder', 'false');
-      localStorage.setItem('reminderCountdown', 300);
-    },
-    async closed() {
-      if (!this.$store.getters.modelChanged || await this.getConfirmModal()) {
-        await this.$store.dispatch(tmActions.diagramClosed);
-        this.$router.go(-1);
-      }
-    },
-    getConfirmModal() {
-      return this.$bvModal.msgBoxConfirm(this.$t('forms.discardMessage'), {
-        title: this.$t('forms.discardTitle'),
-        okVariant: 'danger',
-        okTitle: this.$t('forms.ok'),
-        cancelTitle: this.$t('forms.cancel'),
-        hideHeaderClose: true,
-        centered: true
-      });
-    },
+        init() {
+            this.graph = diagramService.edit(this.$refs.graph_container, this.diagram);
+            stencil.get(this.graph, this.$refs.stencil_container);
+            this.$store.dispatch(tmActions.notModified);
+            const history = this.graph.getPlugin('history');
+            if (history && typeof history.on === 'function') {
+                history.on('change', () => {
+                    const updated = Object.assign({}, this.diagram);
+                    updated.cells = [...this.graph.toJSON().cells];
+                    this.$store.dispatch(tmActions.diagramModified, updated);
+                    this.$forceUpdate();
+                });
+            }
+        },
+        threatSelected(threatId, state) {
+            this.$refs.threatEditDialog.editThreat(threatId, state);
+        },
+        threatSuggest(type) {
+            this.$refs.threatSuggestDialog.showModal(type);
+        },
+        openImportModal() {
+            this.$refs.threatImportModal.showModal();
+        },
+        openExportModal() {
+            this.$refs.threatExportModal.showModal();
+        },
+        openProcessImportModal() {
+            this.$refs.processImportModal.showModal();
+        },
+        openMergeModal() {
+            this.$refs.diagramMergeModal.showModal(this.diagram);
+        },
+        enablePentestingStart() {
+            if (this.isPenttestingStarted) {
+                this.$toast.warning('Pentesting has already been started');
+                return;
+            }
 
-    /* =====================
+            // Get today's date in YYYY-MM-DD format
+            const today = new Date();
+            const dateString = today.toISOString().split('T')[0];
+
+            // Calculate target days: 10 threats per half day (20 per full day)
+            const totalThreats = this.threadStats.total || 0;
+            const calculatedDays = Math.ceil(totalThreats / 10) / 2;
+
+            // Log pentesting start data
+            const penttestingLog = {
+                startDate: dateString,
+                startTime: today.toISOString(),
+                totalThreats: totalThreats,
+                targetDaysCalculated: calculatedDays,
+                targetsPerDay: 20,
+                targetsPerHalfDay: 10
+            };
+
+            console.log('🎯 Pentesting Started:', penttestingLog);
+
+            // Update the component state
+            this.userStartedDate = dateString;
+            this.userTargetDays = calculatedDays;
+            this.isPenttestingStarted = true;
+            this.penttestingStartData = penttestingLog;
+
+            // Save to diagram
+            const updated = Object.assign({}, this.diagram);
+            updated.cells = this.graph.toJSON().cells;
+            updated.userTargetDays = calculatedDays;
+            updated.userStartedDate = dateString;
+            updated.penttestingStartData = penttestingLog;
+
+            this.$store.dispatch(tmActions.diagramModified, updated);
+            this.$store.dispatch(tmActions.modified);
+
+            // Show success message
+            this.$toast.success(
+                `🎯 Pentesting enabled! Target: ${calculatedDays} days (${totalThreats} threats ÷ 10 per half-day) - Started: ${dateString}`
+            );
+        },
+        handleMergeDiagrams(payload) {
+            const { sourceDiagram, sourceProcessId, targetProcessId, mergeMode } = payload;
+            if (!this.diagram || !sourceDiagram) {
+                this.$toast.error('Both diagrams are required for merge');
+                return;
+            }
+
+            const result = mergeDiagrams(this.diagram, sourceDiagram, {
+                mergeMode,
+                sourceProcessId,
+                targetProcessId
+            });
+
+            if (result.errors.length > 0) {
+                this.$toast.error(result.errors[0]);
+                return;
+            }
+
+            this.graph.fromJSON(this.diagram);
+            const updated = Object.assign({}, this.diagram);
+            updated.cells = [...this.diagram.cells];
+            this.$store.dispatch(tmActions.diagramModified, updated);
+            this.$store.dispatch(tmActions.modified);
+            this.$forceUpdate();
+            this.$toast.success(`Merged ${result.importedCount} process link into the diagram`);
+        },
+        handleImportProcesses(payload) {
+            const { data } = payload;
+            const diagram = this.diagram;
+            if (!diagram) {
+                this.$toast.error('No diagram selected');
+                return;
+            }
+            const history = this.graph.getPlugin('history');
+            let importResult;
+            if (history && history.batch) {
+                history.batch(() => {
+                    importResult = processImportService.importProcesses(diagram, data);
+                    if (importResult.matched.length > 0) {
+                        this.graph.fromJSON(diagram);
+                    }
+                    const updated = Object.assign({}, diagram);
+                    updated.cells = [...this.graph.toJSON().cells];
+                    this.$store.dispatch(tmActions.diagramModified, updated);
+                    this.$store.dispatch(tmActions.modified);
+                });
+            } else {
+                importResult = processImportService.importProcesses(diagram, data);
+                if (importResult.matched.length > 0) {
+                    this.graph.fromJSON(diagram);
+                }
+                const updated = Object.assign({}, diagram);
+                updated.cells = [...this.graph.toJSON().cells];
+                this.$store.dispatch(tmActions.diagramModified, updated);
+                this.$store.dispatch(tmActions.modified);
+            }
+            if (importResult.matched.length > 0) {
+                this.$toast.success(`Imported ${importResult.matched.length} process(es)`);
+            }
+            if (importResult.errors.length > 0) {
+                const msg = importResult.errors.length === 1
+                    ? importResult.errors[0]
+                    : `${importResult.errors.length} error(s) occurred during import`;
+                this.$toast.error(msg);
+            }
+            this.$forceUpdate();
+        },
+        handleImportThreats(payload) {
+            const { data } = payload;
+            const diagram = this.diagram;
+            if (!diagram) {
+                this.$toast.error('No diagram selected');
+                return;
+            }
+            const history = this.graph.getPlugin('history');
+            let importResult;
+            if (history && history.batch) {
+                history.batch(() => {
+                    importResult = threatImportService.importThreats(diagram, data);
+                    const updated = Object.assign({}, diagram);
+                    updated.cells = [...this.graph.toJSON().cells];
+                    this.$store.dispatch(tmActions.diagramModified, updated);
+                    this.$store.dispatch(tmActions.modified);
+                });
+            } else {
+                importResult = threatImportService.importThreats(diagram, data);
+                const updated = Object.assign({}, diagram);
+                updated.cells = [...this.graph.toJSON().cells];
+                this.$store.dispatch(tmActions.diagramModified, updated);
+                this.$store.dispatch(tmActions.modified);
+            }
+            if (importResult.matched.length > 0) {
+                this.$toast.success(`Imported ${importResult.matched.length} threat(s)`);
+            }
+            if (importResult.unmatched.length > 0) {
+                const msg = `${importResult.unmatched.length} threat(s) could not be matched and were skipped`;
+                this.$toast.warning(msg);
+            }
+            if (importResult.errors.length > 0) {
+                this.$toast.error(`${importResult.errors.length} error(s) occurred during import`);
+            }
+            this.$forceUpdate();
+        },
+        setToolColor(color) {
+            const container = this.$refs.graph_container;
+            if (container) {
+                container.style.background = color;
+            }
+        },
+        saved() {
+            const updated = Object.assign({}, this.diagram);
+            updated.cells = this.graph.toJSON().cells;
+            updated.userTargetDays = this.userTargetDays;
+            updated.userStartedDate = this.userStartedDate;
+            updated.penttestingStartData = this.penttestingStartData;
+            this.$store.dispatch(tmActions.diagramSaved, updated);
+            this.$store.dispatch(tmActions.saveModel);
+            localStorage.setItem('showReminder', 'false');
+            localStorage.setItem('reminderCountdown', 300);
+        },
+        async closed() {
+            if (!this.$store.getters.modelChanged || await this.getConfirmModal()) {
+                await this.$store.dispatch(tmActions.diagramClosed);
+                this.$router.go(-1);
+            }
+        },
+        getConfirmModal() {
+            return this.$bvModal.msgBoxConfirm(this.$t('forms.discardMessage'), {
+                title: this.$t('forms.discardTitle'),
+                okVariant: 'danger',
+                okTitle: this.$t('forms.ok'),
+                cancelTitle: this.$t('forms.cancel'),
+                hideHeaderClose: true,
+                centered: true
+            });
+        },
+
+        /* =====================
    Toast & Reminder (CSS-animation driven)
    ===================== */
-    startToastTimers() {
-      this.clearToastTimers();
+        startToastTimers() {
+            this.clearToastTimers();
 
-      // Ensure DOM for the toast is mounted before touching elements
-      this.$nextTick(() => {
-        const bar = this.$el && this.$el.querySelector('.save-toast__bar');
-        if (bar) {
-          // Set/update the CSS variable for duration (must match TOAST_DURATION_MS)
-          bar.style.setProperty('--toast-duration', `${this.TOAST_DURATION_MS}ms`);
+            // Ensure DOM for the toast is mounted before touching elements
+            this.$nextTick(() => {
+                const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+                if (bar) {
+                    // Set/update the CSS variable for duration (must match TOAST_DURATION_MS)
+                    bar.style.setProperty('--toast-duration', `${this.TOAST_DURATION_MS}ms`);
 
-          // Restart the CSS animation from 0 -> 100
-          bar.style.animation = 'none';
-          // Force reflow so the browser registers the change
-          // eslint-disable-next-line no-unused-expressions
-          bar.offsetWidth;
-          bar.style.animation = '';
-          // Ensure running state at start
-          bar.style.animationPlayState = 'running';
+                    // Restart the CSS animation from 0 -> 100
+                    bar.style.animation = 'none';
+                    // Force reflow so the browser registers the change
+                    // eslint-disable-next-line no-unused-expressions
+                    bar.offsetWidth;
+                    bar.style.animation = '';
+                    // Ensure running state at start
+                    bar.style.animationPlayState = 'running';
+                }
+
+                // Timing bookkeeping for precise pause/resume
+                this.toastPaused = false;
+                this._toastStartTs = Date.now();                 // when current run started
+                this._toastRemainingMs = this.TOAST_DURATION_MS; // countdown we’ll adjust on pause
+
+                // Single timeout to auto-dismiss
+                this.toastTimerId = window.setTimeout(() => {
+                    this.closeReminder();
+                }, this._toastRemainingMs);
+            });
+        },
+
+        clearToastTimers() {
+            if (this.toastTimerId) {
+                clearTimeout(this.toastTimerId);
+                this.toastTimerId = null;
+            }
+        },
+
+        pauseToast() {
+            if (this.toastPaused) return;
+            this.toastPaused = true;
+
+            const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+            if (bar) {
+                bar.style.animationPlayState = 'paused';
+            }
+
+            if (this._toastStartTs) {
+                const elapsed = Date.now() - this._toastStartTs;
+                this._toastRemainingMs = Math.max(0, this._toastRemainingMs - elapsed);
+            }
+
+            this.clearToastTimers();
+        },
+
+        resumeToast() {
+            if (!this.toastPaused) return;
+            this.toastPaused = false;
+
+            const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+            if (bar) {
+                bar.style.animationPlayState = 'running';
+            }
+
+            this._toastStartTs = Date.now();
+            const remaining = Math.max(0, this._toastRemainingMs || 0);
+            this.toastTimerId = window.setTimeout(() => {
+                this.closeReminder();
+            }, remaining || 1);
+        },
+
+        closeReminder() {
+            this.showReminder = false;
+            this.clearToastTimers();
+
+            // Optional: reset bar so next show animates cleanly from start
+            const bar = this.$el && this.$el.querySelector('.save-toast__bar');
+            if (bar) {
+                bar.style.animation = 'none';
+                // eslint-disable-next-line no-unused-expressions
+                bar.offsetWidth;
+                bar.style.animation = '';
+                bar.style.removeProperty('--toast-duration');
+            }
         }
-
-        // Timing bookkeeping for precise pause/resume
-        this.toastPaused = false;
-        this._toastStartTs = Date.now();                 // when current run started
-        this._toastRemainingMs = this.TOAST_DURATION_MS; // countdown we’ll adjust on pause
-
-        // Single timeout to auto-dismiss
-        this.toastTimerId = window.setTimeout(() => {
-          this.closeReminder();
-        }, this._toastRemainingMs);
-      });
-    },
-
-    clearToastTimers() {
-      if (this.toastTimerId) {
-        clearTimeout(this.toastTimerId);
-        this.toastTimerId = null;
-      }
-    },
-
-    pauseToast() {
-      if (this.toastPaused) return;
-      this.toastPaused = true;
-
-      const bar = this.$el && this.$el.querySelector('.save-toast__bar');
-      if (bar) {
-        bar.style.animationPlayState = 'paused';
-      }
-
-      if (this._toastStartTs) {
-        const elapsed = Date.now() - this._toastStartTs;
-        this._toastRemainingMs = Math.max(0, this._toastRemainingMs - elapsed);
-      }
-
-      this.clearToastTimers();
-    },
-
-    resumeToast() {
-      if (!this.toastPaused) return;
-      this.toastPaused = false;
-
-      const bar = this.$el && this.$el.querySelector('.save-toast__bar');
-      if (bar) {
-        bar.style.animationPlayState = 'running';
-      }
-
-      this._toastStartTs = Date.now();
-      const remaining = Math.max(0, this._toastRemainingMs || 0);
-      this.toastTimerId = window.setTimeout(() => {
-        this.closeReminder();
-      }, remaining || 1);
-    },
-
-    closeReminder() {
-      this.showReminder = false;
-      this.clearToastTimers();
-
-      // Optional: reset bar so next show animates cleanly from start
-      const bar = this.$el && this.$el.querySelector('.save-toast__bar');
-      if (bar) {
-        bar.style.animation = 'none';
-        // eslint-disable-next-line no-unused-expressions
-        bar.offsetWidth;
-        bar.style.animation = '';
-        bar.style.removeProperty('--toast-duration');
-      }
     }
-  }
 };
 </script>

@@ -12,6 +12,17 @@
                 <template #header>
                     {{ $t('threatmodel.threats') }}
                     <b-btn
+                        v-if="selectedThreats.length > 0"
+                        @click="deleteSelectedThreats()"
+                        variant="danger"
+                        size="sm"
+                        class="float-right ml-2"
+                        :title="`Delete ${selectedThreats.length} selected threat(s)`"
+                    >
+                        <font-awesome-icon icon="trash" class="mr-1"></font-awesome-icon>
+                        Delete ({{ selectedThreats.length }})
+                    </b-btn>
+                    <b-btn
                         :disabled="disableNewThreat"
                         @click="newThreat()"
                         v-if="!!cellRef"
@@ -31,19 +42,27 @@
                                 v-for="(threat, idx) in threats || []"
                                 :key="idx"
                             >
-                                <td-graph-threats
-                                    :id="threat.id"
-                                    :status="threat.status"
-                                    :severity="threat.severity"
-                                    :description="threat.description"
-                                    :title="threat.title"
-                                    :type="threat.type"
-                                    :isai="threat.isai"
-                                    :testedOn="threat.testedOn"
-                                    :mitigation="threat.mitigation"
-                                    :modelType="threat.modelType"
-                                    :number=threat.number
-                                    @threatSelected="threatSelected" />
+                                <div style="position: relative;">
+                                    <b-form-checkbox
+                                        :id="`threat-checkbox-${threat.id}`"
+                                        v-model="selectedThreats"
+                                        :value="threat.id"
+                                        style="position: absolute; top: 5px; right: 5px; z-index: 10;"
+                                    />
+                                    <td-graph-threats
+                                        :id="threat.id"
+                                        :status="threat.status"
+                                        :severity="threat.severity"
+                                        :description="threat.description"
+                                        :title="threat.title"
+                                        :type="threat.type"
+                                        :isai="threat.isai"
+                                        :testedOn="threat.testedOn"
+                                        :mitigation="threat.mitigation"
+                                        :modelType="threat.modelType"
+                                        :number=threat.number
+                                        @threatSelected="threatSelected" />
+                                </div>
                             </b-col>
                         </b-row>
                     </b-card-text>
@@ -108,6 +127,11 @@ import TdGraphThreats from '@/components/GraphThreats.vue';
 
 export default {
     name: 'TdGraphMeta',
+    data() {
+        return {
+            selectedThreats: []
+        };
+    },
     computed: mapState({
         cellRef: (state) => state.cell.ref,
         threats: (state) => state.cell.threats,
@@ -124,12 +148,18 @@ export default {
         TdGraphProperties,
         TdGraphThreats
     },
+    watch: {
+        cellRef() {
+            this.selectedThreats = [];
+        }
+    },
     async mounted() {
         this.init();
     },
     methods: {
         init() {
             this.$store.dispatch(CELL_UNSELECTED);
+            this.selectedThreats = [];
         },
         threatSelected(threatId,state) {
             console.debug('selected threat ID: ' + threatId);
@@ -151,6 +181,39 @@ export default {
         },
         AddThreatByContext(){
             this.$emit('threatSuggest','context');
+        },
+        deleteSelectedThreats() {
+            if (this.selectedThreats.length === 0) {
+                this.$toast.warning('No threats selected for deletion');
+                return;
+            }
+
+            this.$bvModal.msgBoxConfirm(`Delete ${this.selectedThreats.length} threat(s)?`, {
+                title: 'Confirm Delete',
+                okVariant: 'danger',
+                okTitle: 'Delete',
+                cancelTitle: 'Cancel'
+            }).then(value => {
+                if (value) {
+                    // Remove selected threats from cellRef
+                    this.cellRef.data.threats = this.cellRef.data.threats.filter(
+                        threat => !this.selectedThreats.includes(threat.id)
+                    );
+                    
+                    // Update hasOpenThreats flag
+                    this.cellRef.data.hasOpenThreats = this.cellRef.data.threats.length > 0;
+                    
+                    // Clear selection
+                    this.selectedThreats = [];
+                    
+                    // Dispatch updates
+                    this.$store.dispatch(CELL_DATA_UPDATED, this.cellRef.data);
+                    this.$store.dispatch(tmActions.modified);
+                    dataChanged.updateStyleAttrs(this.cellRef);
+                    
+                    this.$toast.success('Threat(s) deleted successfully');
+                }
+            });
         }
     },
 };

@@ -210,7 +210,7 @@ export default {
             //     unmatched: [],
             //     errors: []
             // };
-             this.importResult = {
+            this.importResult = {
                 matched: this.parsedData.threats.map(p => ({
                     threats: p.threats,
                     type: 'threats'
