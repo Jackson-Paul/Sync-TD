@@ -56,6 +56,11 @@ const updateStyleAttrs = (cell) => {
         strokeDasharray = styles.outOfScope.strokeDasharray;
     }
 
+    if (cellData.isImported) {
+        color = '#1a73e8';
+        strokeDasharray = '4 2';
+    }
+
     if (!cellData.isBidirectional) {
         sourceMarker = '';
     }

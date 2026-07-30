@@ -187,6 +187,8 @@ const eng = {
             title: 'Export Process Data',
             tooltip: 'Export all processes and flows with their IDs and descriptions',
             exportType: 'Export Type',
+            includeThreats: 'Include Threat Details',
+            includeThreatsTooltip: 'Include full threat information (names, descriptions, severity) instead of just threat count',
             data: 'Process Data (JSON)',
             totalProcesses: 'Total Processes',
             totalFlows: 'Total Flows',
@@ -199,6 +201,10 @@ const eng = {
             copiedSuccess: 'Process data copied to clipboard',
             copyError: 'Error copying to clipboard',
             downloadSuccess: 'Process data downloaded successfully'
+        },
+        pentestingStart: {
+            button: 'Pentesting Start',
+            tooltip: 'Enable pentesting with 20 threats per day target'
         },
         errors: {
             dropSingleFileOnly: 'Drag and drop requires a single file.',
@@ -226,6 +232,7 @@ const eng = {
             isWebApplication: 'Web Application',
             privilegeLevel: 'Privilege Level',
             providesAuthentication: 'Provides Authentication',
+            domainName: 'Domain Name',
             protocol: 'Protocol',
             publicNetwork: 'Public Network',
             storesCredentials: 'Stores Credentials',

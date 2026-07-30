@@ -24,7 +24,8 @@ const actions = {
 const mutations = {
     [CELL_SELECTED]: (state, ref) => {
         state.ref = ref;
-        if (state.ref && state.ref.data && state.ref.data.threats) {
+        state.threats.splice(0);
+        if (state.ref && state.ref.data && state.ref.data.threats && Array.isArray(state.ref.data.threats)) {
             state.ref.data.threats.forEach((threat, idx) => {
                 if (!('isai' in threat)){
                     threat.isai = null;
@@ -41,7 +42,7 @@ const mutations = {
 
         state.ref.setData(data);
 
-        if (data.threats) {
+        if (data.threats && Array.isArray(data.threats)) {
             state.threats.splice(0);
             data.threats.forEach((threat, idx) => Vue.set(state.threats, idx, threat));
         }

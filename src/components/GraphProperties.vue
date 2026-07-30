@@ -42,7 +42,7 @@
     </b-row>
 
     <b-form v-if="!!cellRef && cellRef.data">
-      <b-form-row>
+      <b-form-row class="align-items-start">
         <b-col md="6">
           <b-form-group
             id="name-group"
@@ -89,6 +89,22 @@
             </div>
           </b-form-group>
         </b-col>
+        <b-col v-if="cellRef.data.type === 'tm.Process'" md="4">
+          <b-form-group
+            id="domain-name-group"
+            label-cols="auto"
+            :label="$t('threatmodel.properties.domainName')"
+            label-for="domainName"
+          >
+            <b-form-input
+              id="domainName"
+              v-model="cellRef.data.domainName"
+              @change="onChangeProperties()"
+              type="text"
+              placeholder="Enter domain"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
         <b-col v-if="cellRef.data.type !== 'tm.Text'" md="6">
           <b-form-group
             id="parameters-group"
@@ -100,6 +116,7 @@
               id="urlParameters"
               v-model="cellRef.data.parameters"
               @change="onChangeProperties()"
+              rows="1"
             ></b-form-textarea>
           </b-form-group>
         </b-col>

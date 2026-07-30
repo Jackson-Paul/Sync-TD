@@ -121,13 +121,13 @@ export const createNewTypedThreat = function (modelType, cellType,number) {
     };
 };
 
-const hasOpenThreats = (data) => !!data && !!data.threats &&
-    data.threats.filter(x => x.status.toLowerCase() === 'open').length > 0;
+const hasOpenThreats = (data) => !!data && Array.isArray(data.threats) &&
+    data.threats.filter(x => x && x.status && x.status.toLowerCase() === 'open').length > 0;
 
 const filter = (diagrams, filters) => {
     return diagrams
         .flatMap(x => x.cells)
-        .filter(x => !!x.data && !!x.data.threats)
+        .filter(x => !!x.data && Array.isArray(x.data.threats))
         .flatMap(x => x.data.threats)
         .filter(x => filterForDiagram(x, filters))
         .filter(x => !!x);

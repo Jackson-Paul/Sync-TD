@@ -21,7 +21,7 @@ const applyThreatData = (cell, data) => {
     if (!data.isTrustBoundary) {
         data.outOfScope = !!cell.outOfScope;
         data.reasonOutOfScope = cell.reasonOutOfScope || '';
-        data.threats = cell.threats || [];
+        data.threats = Array.isArray(cell.threats) ? cell.threats : [];
         if (data.threats.length) {
             data.threats.forEach((threat) => {
                 if (cell.modelType) {

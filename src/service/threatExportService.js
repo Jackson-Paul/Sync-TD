@@ -5,66 +5,94 @@
 
 /**
  * Extract process nodes from diagram
- * Returns array of {id, name, description, type, url, method, parameters}
+ * Returns array of {id, name, description, type, url, method, parameters, threats}
  * @param {object} diagram - The diagram containing cells
+ * @param {boolean} includeThreats - Whether to include full threat details (array) or just count
  * @returns {array} - Array of process objects
  */
-export const extractProcesses = (diagram) => {
+export const extractProcesses = (diagram, includeThreats = false) => {
     if (!diagram || !diagram.cells) return [];
     
     return diagram.cells
         .filter(cell => {
-            // Include Actor, Process, Data Store, and External Entity types
+            // Include Actor, Process, Store, Data Store, and External Entity types
             return cell.data && 
                    (cell.data.type === 'tm.Actor' || 
                     cell.data.type === 'tm.Process' || 
+                    cell.data.type === 'tm.Store' ||
                     cell.data.type === 'tm.DataStore' ||
                     cell.data.type === 'tm.ExternalEntity');
         })
-        .map(cell => ({
-            id: cell.id || '',
-            name: cell.data.name || '',
-            description: cell.data.description || '',
-            type: cell.data.type || '',
-            url: cell.data.url || '',
-            method: cell.data.method || '',
-            parameters: cell.data.parameters || '',
-            threats: Array.isArray(cell.data.threats) ? cell.data.threats.length : 0
-        }));
+        .map(cell => {
+            const process = {
+                id: cell.id || '',
+                name: cell.data.name || '',
+                description: cell.data.description || '',
+                type: cell.data.type || '',
+                url: cell.data.url || '',
+                method: cell.data.method || '',
+                parameters: cell.data.parameters || '',
+                domainName: cell.data.domainName || '',
+                position: cell.position || cell.data.position || { x: 0, y: 0 },
+                size: cell.size || cell.data.size || { width: 100, height: 100 }
+            };
+            
+            if (includeThreats && Array.isArray(cell.data.threats)) {
+                process.threats = cell.data.threats;
+            } else {
+                process.threats = Array.isArray(cell.data.threats) ? cell.data.threats.length : 0;
+            }
+            
+            return process;
+        });
 };
 
 /**
  * Extract flows from diagram
- * Returns array of {id, method, path, description, type}
+ * Returns array of {id, method, path, description, type, sourceId, targetId, threats}
  * @param {object} diagram - The diagram containing cells
+ * @param {boolean} includeThreats - Whether to include full threat details (array) or just count
  * @returns {array} - Array of flow objects
  */
-export const extractFlows = (diagram) => {
+export const extractFlows = (diagram, includeThreats = false) => {
     if (!diagram || !diagram.cells) return [];
     
     return diagram.cells
         .filter(cell => {
             return cell.data && cell.data.type === 'tm.Flow';
         })
-        .map(cell => ({
-            id: cell.id || '',
-            method: cell.data.method || '',
-            path: cell.data.url || '',
-            description: cell.data.description || '',
-            protocol: cell.data.protocol || '',
-            threats: Array.isArray(cell.data.threats) ? cell.data.threats.length : 0
-        }));
+        .map(cell => {
+            const flow = {
+                id: cell.id || '',
+                name: cell.data.name || '',
+                method: cell.data.method || '',
+                path: cell.data.url || cell.data.path || '',
+                description: cell.data.description || '',
+                protocol: cell.data.protocol || '',
+                sourceId: cell.source?.cell || '',
+                targetId: cell.target?.cell || ''
+            };
+            
+            if (includeThreats && Array.isArray(cell.data.threats)) {
+                flow.threats = cell.data.threats;
+            } else {
+                flow.threats = Array.isArray(cell.data.threats) ? cell.data.threats.length : 0;
+            }
+            
+            return flow;
+        });
 };
 
 /**
  * Generate export data in JSON format
  * @param {object} diagram - The diagram to export from
  * @param {string} includeType - 'all', 'processes', or 'flows'
+ * @param {boolean} includeThreats - Whether to include full threat details (array) or just count
  * @returns {object} - Export data object
  */
-export const generateExportData = (diagram, includeType = 'all') => {
-    const processes = includeType === 'flows' ? [] : extractProcesses(diagram);
-    const flows = includeType === 'processes' ? [] : extractFlows(diagram);
+export const generateExportData = (diagram, includeType = 'all', includeThreats = false) => {
+    const processes = includeType === 'flows' ? [] : extractProcesses(diagram, includeThreats);
+    const flows = includeType === 'processes' ? [] : extractFlows(diagram, includeThreats);
     
     return {
         version: '1.0',

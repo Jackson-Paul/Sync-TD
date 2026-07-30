@@ -12,11 +12,22 @@
                 :label="$t('threatmodel.exportThreats.exportType')"
                 class="mb-4"
             >
-                <b-form-radio-group
-                    v-model="exportType"
-                    :options="exportTypeOptions"
-                    @change="loadExportData"
-                ></b-form-radio-group>
+                <div class="export-type-row">
+                    <b-form-radio-group
+                        v-model="exportType"
+                        :options="exportTypeOptions"
+                        @change="loadExportData"
+                    ></b-form-radio-group>
+                    <div class="include-threats-inline">
+                        <b-form-checkbox
+                            v-model="includeThreats"
+                            @change="loadExportData"
+                            :title="$t('threatmodel.exportThreats.includeThreatsTooltip')"
+                        >
+                            {{ $t('threatmodel.exportThreats.includeThreats') }}
+                        </b-form-checkbox>
+                    </div>
+                </div>
             </b-form-group>
 
             <!-- Export Data Display -->
@@ -100,6 +111,7 @@ export default {
     data() {
         return {
             exportType: 'all',
+            includeThreats: false,
             exportTypeOptions: [
                 { value: 'all', text: 'All (Processes & Flows)' },
                 { value: 'processes', text: 'Processes Only' },
@@ -133,7 +145,8 @@ export default {
             this.copySuccess = false;
             this.exportData = threatExportService.generateExportData(
                 this.diagram,
-                this.exportType
+                this.exportType,
+                this.includeThreats
             );
             this.exportJsonString = threatExportService.formatExportJson(this.exportData);
         },
@@ -174,6 +187,23 @@ export default {
         background: #fff;
         border-color: #80bdff;
     }
+}
+
+.export-type-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 24px;
+}
+
+.include-threats-inline {
+    display: flex;
+    align-items: center;
+    min-width: 220px;
+}
+
+.include-threats-inline .custom-control {
+    margin-bottom: 0;
 }
 
 .stats-grid {
