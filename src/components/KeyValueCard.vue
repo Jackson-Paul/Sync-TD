@@ -10,7 +10,12 @@
                     <strong>{{ keyvalue.key }}:</strong>
                 </div>
                 <div>
-                    {{ keyvalue.value }}
+                    <a v-if="keyvalue.link" :href="keyvalue.link" target="_blank" rel="noopener noreferrer">
+                        {{ keyvalue.value }}
+                    </a>
+                    <span v-else>
+                        {{ keyvalue.value }}
+                    </span>
                 </div>
             </b-col>
         </b-row>

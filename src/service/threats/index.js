@@ -124,6 +124,12 @@ export const createNewTypedThreat = function (modelType, cellType,number) {
 const hasOpenThreats = (data) => !!data && Array.isArray(data.threats) &&
     data.threats.filter(x => x && x.status && x.status.toLowerCase() === 'open').length > 0;
 
+const isTested = (threat) => !!threat && !!threat.testedOn &&
+    ((threat.status === 'Mitigated') || (threat.status === 'Open' && threat.severity !== 'TBD'));
+
+const hasUntestedThreats = (data) => !!data && Array.isArray(data.threats) &&
+    data.threats.some(threat => !isTested(threat));
+
 const filter = (diagrams, filters) => {
     return diagrams
         .flatMap(x => x.cells)
@@ -150,5 +156,7 @@ export default {
     filter,
     filterForDiagram,
     getModelByTranslation: models.getByTranslationValue,
-    hasOpenThreats
+    hasOpenThreats,
+    hasUntestedThreats,
+    isTested
 };

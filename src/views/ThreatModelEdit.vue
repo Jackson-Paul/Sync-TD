@@ -73,6 +73,22 @@
                     <b-form-row>
                         <b-col>
                             <b-form-group
+                                id="noc-link-group"
+                                :label="$t('threatmodel.nocLink')"
+                                label-for="noc-link">
+                                <b-form-input
+                                    id="noc-link"
+                                    v-model="model.summary.nocLink"
+                                    @input="onModifyModel()"
+                                    type="text"
+                                ></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                    </b-form-row>
+
+                    <b-form-row>
+                        <b-col>
+                            <b-form-group
                                 id="contributors-group"
                                 :label="$t('threatmodel.contributors')"
                                 label-for="contributors">
@@ -187,6 +203,7 @@
 .select-diagram-type {
     font-size: 12px;
 }
+
 </style>
 
 <script>

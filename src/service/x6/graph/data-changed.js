@@ -21,6 +21,10 @@ const styles = {
         color: 'red',
         strokeWidth: 2.5
     },
+    hasUntestedThreats: {
+        color: '#f0ad4e',
+        strokeWidth: 2.5
+    },
     outOfScope: {
         strokeDasharray: '4 3'
     },
@@ -50,6 +54,11 @@ const updateStyleAttrs = (cell) => {
     if (cellData.hasOpenThreats) {
         color = styles.hasOpenThreats.color;
         strokeWidth = styles.hasOpenThreats.strokeWidth;
+    }
+
+    if (threats.hasUntestedThreats(cellData)) {
+        color = styles.hasUntestedThreats.color;
+        strokeWidth = styles.hasUntestedThreats.strokeWidth;
     }
 
     if (cellData.outOfScope) {
