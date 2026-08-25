@@ -3,9 +3,9 @@
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
   "version": 1,
-  "serialNumber": "urn:uuid:ab494610-9ac1-4894-89c4-1abe27a74cfa",
+  "serialNumber": "urn:uuid:df694b1d-ee00-4a25-8b04-3e309bd4eb44",
   "metadata": {
-    "timestamp": "2026-07-30T07:23:50.381Z",
+    "timestamp": "2026-08-25T07:49:12.746Z",
     "lifecycles": [
       {
         "phase": "build"
@@ -248,6 +248,72 @@
     },
     {
       "type": "library",
+      "name": "vue-router",
+      "version": "3.6.5",
+      "bom-ref": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git",
+      "author": "Evan You",
+      "description": "Official router for Vue.js 2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/vuejs/vue-router.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/vuejs/vue-router#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/vuejs/vue-router/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vuex",
+      "version": "3.6.2",
+      "bom-ref": "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git",
+      "author": "Evan You",
+      "description": "state management for Vue.js",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/vuejs/vuex.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/vuejs/vuex#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/vuejs/vuex/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "vue-fontawesome",
       "group": "@fortawesome",
       "version": "2.0.10",
@@ -404,72 +470,6 @@
         },
         {
           "url": "https://github.com/bootstrap-vue/bootstrap-vue/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "vue-router",
-      "version": "3.6.5",
-      "bom-ref": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git",
-      "author": "Evan You",
-      "description": "Official router for Vue.js 2",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/vuejs/vue-router.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/vuejs/vue-router#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/vuejs/vue-router/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
-      "name": "vuex",
-      "version": "3.6.2",
-      "bom-ref": "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git",
-      "author": "Evan You",
-      "description": "state management for Vue.js",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/vuejs/vuex.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/vuejs/vuex#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/vuejs/vuex/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         }
@@ -937,39 +937,6 @@
     },
     {
       "type": "library",
-      "name": "json-schema-traverse",
-      "version": "1.0.0",
-      "bom-ref": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git",
-      "author": "Evgeny Poberezkin",
-      "description": "Traverse JSON Schema passing each schema object to callback",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/epoberezkin/json-schema-traverse.git",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\""
-        },
-        {
-          "url": "https://github.com/epoberezkin/json-schema-traverse#readme",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/epoberezkin/json-schema-traverse/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "fast-deep-equal",
       "version": "3.1.3",
       "bom-ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git",
@@ -996,6 +963,39 @@
         },
         {
           "url": "https://github.com/epoberezkin/fast-deep-equal/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "json-schema-traverse",
+      "version": "1.0.0",
+      "bom-ref": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git",
+      "author": "Evgeny Poberezkin",
+      "description": "Traverse JSON Schema passing each schema object to callback",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/epoberezkin/json-schema-traverse.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/epoberezkin/json-schema-traverse#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/epoberezkin/json-schema-traverse/issues",
           "type": "issue-tracker",
           "comment": "as detected from PackageJson property \"bugs.url\""
         }
@@ -1103,12 +1103,12 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-history",
+      "name": "x6-plugin-clipboard",
       "group": "@antv",
-      "version": "2.2.4",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
+      "version": "2.1.6",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard",
       "author": "bubkoo",
-      "description": "history plugin for X6",
+      "description": "clipboard plugin for X6",
       "licenses": [
         {
           "license": {
@@ -1116,15 +1116,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
+      "purl": "pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard",
       "externalReferences": [
         {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-history",
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-clipboard",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/history",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/clipboard",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
@@ -1171,40 +1171,6 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-clipboard",
-      "group": "@antv",
-      "version": "2.1.6",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard",
-      "author": "bubkoo",
-      "description": "clipboard plugin for X6",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-clipboard",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
-        },
-        {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/clipboard",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/antvis/x6/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "x6-plugin-keyboard",
       "group": "@antv",
       "version": "2.2.3",
@@ -1239,12 +1205,12 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-scroller",
+      "name": "x6-plugin-history",
       "group": "@antv",
-      "version": "2.0.10",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller",
+      "version": "2.2.4",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
       "author": "bubkoo",
-      "description": "scroller plugin for X6",
+      "description": "history plugin for X6",
       "licenses": [
         {
           "license": {
@@ -1252,15 +1218,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller",
+      "purl": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
       "externalReferences": [
         {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-scroller",
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-history",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/scroller",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/history",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
@@ -1307,6 +1273,40 @@
     },
     {
       "type": "library",
+      "name": "x6-plugin-snapline",
+      "group": "@antv",
+      "version": "2.1.7",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "author": "bubkoo",
+      "description": "snapline plugin for X6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-snapline",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/snapline",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/antvis/x6/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
       "name": "x6-plugin-transform",
       "group": "@antv",
       "version": "2.1.8",
@@ -1341,12 +1341,12 @@
     },
     {
       "type": "library",
-      "name": "x6-plugin-snapline",
+      "name": "x6-plugin-scroller",
       "group": "@antv",
-      "version": "2.1.7",
-      "bom-ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "version": "2.0.10",
+      "bom-ref": "pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller",
       "author": "bubkoo",
-      "description": "snapline plugin for X6",
+      "description": "scroller plugin for X6",
       "licenses": [
         {
           "license": {
@@ -1354,15 +1354,15 @@
           }
         }
       ],
-      "purl": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "purl": "pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller",
       "externalReferences": [
         {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-snapline",
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-plugin-scroller",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
         {
-          "url": "https://x6.antv.antgroup.com/tutorial/plugins/snapline",
+          "url": "https://x6.antv.antgroup.com/tutorial/plugins/scroller",
           "type": "website",
           "comment": "as detected from PackageJson property \"homepage\""
         },
@@ -1442,40 +1442,6 @@
     },
     {
       "type": "library",
-      "name": "x6-geometry",
-      "group": "@antv",
-      "version": "2.0.5",
-      "bom-ref": "pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry",
-      "author": "bubkoo",
-      "description": "Geometry operations for X6",
-      "licenses": [
-        {
-          "license": {
-            "id": "MIT"
-          }
-        }
-      ],
-      "purl": "pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry",
-      "externalReferences": [
-        {
-          "url": "git+https://github.com/antvis/x6.git#packages/x6-geometry",
-          "type": "vcs",
-          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
-        },
-        {
-          "url": "https://x6.antv.antgroup.com",
-          "type": "website",
-          "comment": "as detected from PackageJson property \"homepage\""
-        },
-        {
-          "url": "https://github.com/antvis/x6/issues",
-          "type": "issue-tracker",
-          "comment": "as detected from PackageJson property \"bugs.url\""
-        }
-      ]
-    },
-    {
-      "type": "library",
       "name": "x6-common",
       "group": "@antv",
       "version": "2.0.17",
@@ -1493,6 +1459,40 @@
       "externalReferences": [
         {
           "url": "git+https://github.com/antvis/x6.git#packages/x6-common",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://x6.antv.antgroup.com",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/antvis/x6/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "x6-geometry",
+      "group": "@antv",
+      "version": "2.0.5",
+      "bom-ref": "pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry",
+      "author": "bubkoo",
+      "description": "Geometry operations for X6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/antvis/x6.git#packages/x6-geometry",
           "type": "vcs",
           "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
         },
@@ -1592,8 +1592,8 @@
         "pkg:npm/vuex-persist@3.1.3?vcs_url=git%2Bhttps%3A//github.com/championswimmer/vuex-persist.git",
         "pkg:npm/is-electron@2.2.2?vcs_url=git%2Bssh%3A//git%40github.com/cheton/is-electron.git",
         "pkg:npm/uuid@8.3.2?vcs_url=git%2Bhttps%3A//github.com/uuidjs/uuid.git",
-        "pkg:npm/axios@1.8.2?vcs_url=git%2Bhttps%3A//github.com/axios/axios.git",
         "pkg:npm/ajv@8.12.0?vcs_url=git%2Bhttps%3A//github.com/ajv-validator/ajv.git",
+        "pkg:npm/axios@1.8.2?vcs_url=git%2Bhttps%3A//github.com/axios/axios.git",
         "pkg:npm/css-loader@6.10.0?vcs_url=git%2Bhttps%3A//github.com/webpack-contrib/css-loader.git",
         "pkg:npm/passive-events-support@1.1.0?vcs_url=git%2Bhttps%3A//github.com/ignasdamunskis/passive-events-support.git",
         "pkg:npm/%40antv/x6-plugin-stencil@2.1.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-stencil",
@@ -1631,6 +1631,12 @@
       "ref": "pkg:npm/vue-i18n@8.28.2?vcs_url=git%2Bhttps%3A//github.com/kazupon/vue-i18n.git"
     },
     {
+      "ref": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"
+    },
+    {
+      "ref": "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git"
+    },
+    {
       "ref": "pkg:npm/%40fortawesome/vue-fontawesome@2.0.10?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/vue-fontawesome.git",
       "dependsOn": [
         "pkg:npm/%40fortawesome/fontawesome-svg-core@6.5.1?vcs_url=git%2Bhttps%3A//github.com/FortAwesome/Font-Awesome.git"
@@ -1653,12 +1659,6 @@
         "pkg:npm/portal-vue@2.1.7?vcs_url=git%2Bhttps%3A//github.com/LinusBorg/portal-vue.git",
         "pkg:npm/popper.js@1.16.1?vcs_url=git%2Bhttps%3A//github.com/FezVrasta/popper.js.git"
       ]
-    },
-    {
-      "ref": "pkg:npm/vue-router@3.6.5?vcs_url=git%2Bhttps%3A//github.com/vuejs/vue-router.git"
-    },
-    {
-      "ref": "pkg:npm/vuex@3.6.2?vcs_url=git%2Bhttps%3A//github.com/vuejs/vuex.git"
     },
     {
       "ref": "pkg:npm/is-electron@2.2.2?vcs_url=git%2Bssh%3A//git%40github.com/cheton/is-electron.git"
@@ -1724,10 +1724,10 @@
       ]
     },
     {
-      "ref": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git"
+      "ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git"
     },
     {
-      "ref": "pkg:npm/fast-deep-equal@3.1.3?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/fast-deep-equal.git"
+      "ref": "pkg:npm/json-schema-traverse@1.0.0?vcs_url=git%2Bhttps%3A//github.com/epoberezkin/json-schema-traverse.git"
     },
     {
       "ref": "pkg:npm/date-format-parse@0.2.7?vcs_url=git%2Bhttps%3A//github.com/mengxiong10/date-format-parse.git"
@@ -1743,19 +1743,13 @@
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
+      "ref": "pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
     },
     {
       "ref": "pkg:npm/%40antv/x6-plugin-export@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-export",
-      "dependsOn": [
-        "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
-      ]
-    },
-    {
-      "ref": "pkg:npm/%40antv/x6-plugin-clipboard@2.1.6?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-clipboard",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
@@ -1768,7 +1762,7 @@
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller",
+      "ref": "pkg:npm/%40antv/x6-plugin-history@2.2.4?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-history",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
@@ -1780,13 +1774,19 @@
       ]
     },
     {
+      "ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "dependsOn": [
+        "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
+      ]
+    },
+    {
       "ref": "pkg:npm/%40antv/x6-plugin-transform@2.1.8?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-transform",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-plugin-snapline@2.1.7?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-snapline",
+      "ref": "pkg:npm/%40antv/x6-plugin-scroller@2.0.10?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-plugin-scroller",
       "dependsOn": [
         "pkg:npm/%40antv/x6@2.18.1?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6"
       ]
@@ -1801,13 +1801,13 @@
       ]
     },
     {
-      "ref": "pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry"
-    },
-    {
       "ref": "pkg:npm/%40antv/x6-common@2.0.17?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-common",
       "dependsOn": [
         "pkg:npm/lodash-es@4.17.21?vcs_url=git%2Bhttps%3A//github.com/lodash/lodash.git"
       ]
+    },
+    {
+      "ref": "pkg:npm/%40antv/x6-geometry@2.0.5?vcs_url=git%2Bhttps%3A//github.com/antvis/x6.git#packages/x6-geometry"
     },
     {
       "ref": "pkg:npm/mousetrap@1.6.5?vcs_url=git%3A//github.com/ccampbell/mousetrap.git"
