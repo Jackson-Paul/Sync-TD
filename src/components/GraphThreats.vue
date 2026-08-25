@@ -1,5 +1,5 @@
 <template>
-    <b-card class="threat-card">
+    <b-card class="threat-card" :class="{ 'untested-threat-card': !isTested }">
         <b-card-text>
             <b-row class="align-items-center mb-2">
                 <b-col>
@@ -39,19 +39,24 @@
                         v-if="status === 'Open'" />
                     <font-awesome-icon
                         icon="circle"
+                        class="threat-icon yellow-icon"
+                        :title="'Not tested'"
+                        v-if="!isTested" />
+                    <font-awesome-icon
+                        icon="circle"
                         class="threat-icon red-icon"
                         :title="severity"
-                        v-if="severity === 'High'" />
+                        v-if="isTested && severity === 'High'" />
                     <font-awesome-icon
                         icon="circle"
                         class="threat-icon yellow-icon"
                         :title="severity"
-                        v-if="severity === 'Medium'" />
+                        v-if="isTested && severity === 'Medium'" />
                     <font-awesome-icon
                         icon="circle"
                         class="threat-icon green-icon"
                         :title="severity"
-                        v-if="severity === 'Low'" />
+                        v-if="isTested && severity === 'Low'" />
                 </b-col>
                 <b-col align-h="end">
                     <b-badge v-if="!!modelType">{{ modelType }}</b-badge>
@@ -64,6 +69,11 @@
 <style lang="scss" scoped>
 .threat-card {
     font-size: 14px;
+}
+
+.untested-threat-card {
+    border-color: $yellow;
+    box-shadow: inset 4px 0 0 $yellow;
 }
 
 .threat-title {
@@ -101,6 +111,8 @@
 </style>
 
 <script>
+import threats from '@/service/threats/index.js';
+
 export default {
     name: 'TdGraphThreats',
     props: {
@@ -118,6 +130,13 @@ export default {
         testedOn:{type: Date}
     },
     computed: {
+        isTested() {
+            return threats.isTested({
+                status: this.status,
+                severity: this.severity,
+                testedOn: this.testedOn
+            });
+        },
         severityVariant() {
             switch ((this.severity || '').toLowerCase()) {
             case 'high':

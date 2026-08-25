@@ -12,6 +12,9 @@
         <div class="page-subtitle td-report-summary">
             {{ $t('report.summary') }}
         </div>
+        <div v-if="hasContentMismatch" class="td-content-warning">
+            {{ $t('report.threatStats.contentWarning', { total: total }) }}
+        </div>
         <div class="mt-2">
             <table class="table td-summary-table">
                 <tr>
@@ -25,6 +28,14 @@
                 <tr>
                     <th>{{ $t('report.threatStats.notMitigated') }}</th>
                     <td class="td-summary-not-mitigated">{{ notMitigated }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('report.threatStats.descriptionProvided') }}</th>
+                    <td :class="{ 'td-summary-mismatch': descriptionProvided < total }">{{ descriptionProvided }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('report.threatStats.mitigationProvided') }}</th>
+                    <td :class="{ 'td-summary-mismatch': mitigationProvided < total }">{{ mitigationProvided }}</td>
                 </tr>
                 <tr>
                     <th>{{ $t('report.threatStats.openHigh') }}</th>
@@ -43,6 +54,22 @@
                     <td class="td-summary-open-unknown">{{ openUnknown }}</td>
                 </tr>
             </table>
+            <div v-if="missingMitigations.length" class="td-missing-mitigations">
+                <h4>{{ $t('report.threatStats.missingMitigations') }}</h4>
+                <ul>
+                    <li v-for="threat in missingMitigations" :key="threat.threatId || threat.reportNumber">
+                        <strong>#{{ threat.reportNumber }}</strong> {{ threat.title || $t('report.notProvided') }}
+                    </li>
+                </ul>
+            </div>
+            <div v-if="missingDescriptions.length" class="td-missing-mitigations">
+                <h4>{{ $t('report.threatStats.missingDescriptions') }}</h4>
+                <ul>
+                    <li v-for="threat in missingDescriptions" :key="threat.threatId || threat.reportNumber">
+                        <strong>#{{ threat.reportNumber }}</strong> {{ threat.title || $t('report.notProvided') }}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -52,6 +79,28 @@
     display: flex;
     flex-direction: column;
     white-space: pre-wrap;
+}
+
+.td-content-warning {
+    padding: 10px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    font-weight: 600;
+}
+
+.td-summary-mismatch {
+    color: #721c24;
+    background-color: #f8d7da !important;
+    font-weight: 600;
+}
+
+.td-missing-mitigations {
+    margin-top: 16px;
+}
+
+.td-missing-mitigations h4 {
+    font-size: 1rem;
 }
 </style>
 
@@ -81,6 +130,31 @@ export default {
             return this.threats
                 .filter(threat => threat.status.toLowerCase() !== 'mitigated')
                 .length;
+        },
+        descriptionProvided: function () {
+            return this.threats.filter(threat => !!String(threat.description || '').trim()).length;
+        },
+        mitigationProvided: function () {
+            return this.threats.filter(threat => !!String(threat.mitigation || '').trim()).length;
+        },
+        missingMitigations: function () {
+            return this.threatsWithReportNumbers.filter(threat => !String(threat.mitigation || '').trim());
+        },
+        missingDescriptions: function () {
+            return this.threatsWithReportNumbers.filter(threat => !String(threat.description || '').trim());
+        },
+        threatsWithReportNumbers: function () {
+            return this.threats.map((threat, index) => ({
+                ...threat,
+                reportNumber: threat.number !== undefined && threat.number !== null
+                    ? threat.number
+                    : index + 1
+            }));
+        },
+        hasContentMismatch: function () {
+            return this.statusProvided !== this.total ||
+                this.descriptionProvided !== this.total ||
+                this.mitigationProvided !== this.total;
         },
         openHigh: function () {
             return this.getOpenThreats()

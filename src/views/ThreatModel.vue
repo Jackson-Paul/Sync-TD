@@ -20,6 +20,22 @@
             </b-col>
         </b-row>
 
+        <!-- DFD summary -->
+        <b-row class="mb-4">
+            <b-col>
+                <div class="td-dfd-summary" role="region" aria-label="DFD summary">
+                    <span class="td-dfd-summary-label">Total:</span>
+                    <strong>{{ dfdStats.total }}</strong>
+                    <span class="td-dfd-summary-label">Tested:</span>
+                    <strong>{{ dfdStats.tested }}</strong>
+                    <span class="td-dfd-summary-label">Not tested:</span>
+                    <strong>{{ dfdStats.notTested }}</strong>
+                    <span class="td-dfd-summary-label">Completion:</span>
+                    <strong>{{ dfdStats.completion }}%</strong>
+                </div>
+            </b-col>
+        </b-row>
+
         <!-- Diagrams -->
         <b-row class="mb-4">
             <b-col
@@ -90,6 +106,23 @@
     max-width: 200px;
     max-height: 160px;
 }
+
+.td-dfd-summary {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border-top: 4px solid $danger;
+    border-radius: 4px;
+    padding: 14px 16px;
+    background-color: $white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    font-size: 18px;
+}
+
+.td-dfd-summary-label {
+    color: $info;
+    font-weight: 600;
+}
 </style>
 
 <script>
@@ -109,7 +142,24 @@ export default {
     computed: mapState({
         model: (state) => state.threatmodel.data,
         providerType: (state) => getProviderType(state.provider.selected),
-        version: (state) => state.packageBuildVersion
+        version: (state) => state.packageBuildVersion,
+        dfdStats() {
+            const threats = (this.model.detail.diagrams || []).flatMap(diagram =>
+                (diagram.cells || []).flatMap(cell => cell.data && Array.isArray(cell.data.threats) ? cell.data.threats : [])
+            );
+            const tested = threats.filter(threat =>
+                threat.testedOn && (threat.status === 'Mitigated' ||
+                    (threat.status === 'Open' && threat.severity !== 'TBD'))
+            ).length;
+            const total = threats.length;
+
+            return {
+                total,
+                tested,
+                notTested: total - tested,
+                completion: total > 0 ? Math.round((tested / total) * 100) : 0
+            };
+        }
     }),
     methods: {
         onEditClick(evt) {
