@@ -165,6 +165,45 @@
                         </b-form-group>
                     </b-col>
                 </b-form-row>
+
+                <b-form-row>
+                    <b-col>
+                        <b-form-group
+                            id="mitigation-screenshot-group"
+                            :label="$t('threats.properties.mitigationScreenshot')"
+                            label-for="mitigation-screenshot">
+                            <div class="screenshot-upload-area">
+                                <div class="screenshot-instructions">
+                                    <small class="text-muted">
+                                        📋 {{ $t('threats.properties.screenshotInstructions') }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div v-if="threat.mitigationScreenshots && threat.mitigationScreenshots.length > 0" class="screenshots-container mt-2">
+                                <div v-for="(screenshot, idx) in threat.mitigationScreenshots" :key="idx" class="screenshot-item">
+                                    <div class="screenshot-wrapper">
+                                        <img 
+                                            :src="screenshot.data" 
+                                            :alt="screenshot.fileName" 
+                                            class="screenshot-thumbnail">
+                                    </div>
+                                    <div class="screenshot-info">
+                                        <small class="text-muted d-block">{{ screenshot.fileName }}</small>
+                                        <b-button 
+                                            size="sm"
+                                            variant="danger"
+                                            @click="removeScreenshot(idx)">
+                                            {{ $t('forms.delete') }}
+                                        </b-button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else class="text-muted mt-2">
+                                <small>{{ $t('threats.properties.noScreenshots') }}</small>
+                            </div>
+                        </b-form-group>
+                    </b-col>
+                </b-form-row>
             </b-form>
 
             <template #modal-footer>
@@ -261,7 +300,8 @@ export default {
             threat: {
                 isai: null,
                 ticketlink: '',
-                testedOn: new Date()
+                testedOn: new Date(),
+                mitigationScreenshots: []
             },
             modelTypes: [
                 'CIA',
@@ -270,15 +310,27 @@ export default {
                 'PLOT4ai',
                 'STRIDE'
             ],
-            number: 0
+            number: 0,
+            pasteEventListener: null
         };
+    },
+    mounted() {
+        // Add paste event listener when modal is shown
+        this.pasteEventListener = this.handlePaste.bind(this);
+    },
+    beforeDestroy() {
+        // Clean up paste event listener
+        if (this.pasteEventListener) {
+            document.removeEventListener('paste', this.pasteEventListener);
+        }
     },
     methods: {
         editThreat(threatId,state) {
             const crnthreat = this.cellRef.data.threats.find(x => x.id === threatId);
             this.threat = {
                 ...crnthreat,
-                testedOn: crnthreat.testedOn ? new Date(crnthreat.testedOn) : null
+                testedOn: crnthreat.testedOn ? new Date(crnthreat.testedOn) : null,
+                mitigationScreenshots: crnthreat.mitigationScreenshots ? [...crnthreat.mitigationScreenshots] : []
             };
             if (!this.threat) {
                 // this should never happen with a valid threatId
@@ -287,6 +339,10 @@ export default {
                 this.number = this.threat.number;
                 this.newThreat = state==='new';
                 this.$refs.editModal.show();
+                // Add paste event listener when modal is shown
+                this.$nextTick(() => {
+                    document.addEventListener('paste', this.pasteEventListener);
+                });
             }
         },
         updateThreat() {
@@ -317,6 +373,7 @@ export default {
                 threatRef.testedOn = this.threat.testedOn;
                 threatRef.ticketlink = this.threat.ticketlink;
                 threatRef.score = this.threat.score;
+                threatRef.mitigationScreenshots = this.threat.mitigationScreenshots;
                 this.$store.dispatch(CELL_DATA_UPDATED, this.cellRef.data);
                 this.$store.dispatch(tmActions.modified);
                 dataChanged.updateStyleAttrs(this.cellRef);
@@ -341,6 +398,52 @@ export default {
         },
         hideModal() {
             this.$refs.editModal.hide();
+            // Remove paste event listener when modal is hidden
+            document.removeEventListener('paste', this.pasteEventListener);
+        },
+        onScreenshotSelected(file) {
+            if (file) {
+                this.screenshotFileName = file.name;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.threat.mitigationScreenshot = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        handlePaste(event) {
+            const items = event.clipboardData.items;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    const blob = items[i].getAsFile();
+                    if (blob) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            // Generate filename for pasted image
+                            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+                            const ext = blob.type.split('/')[1] || 'png';
+                            const fileName = `pasted-screenshot-${timestamp}.${ext}`;
+                            
+                            // Add to screenshots array
+                            if (!this.threat.mitigationScreenshots) {
+                                this.threat.mitigationScreenshots = [];
+                            }
+                            this.threat.mitigationScreenshots.push({
+                                data: e.target.result,
+                                fileName: fileName
+                            });
+                        };
+                        reader.readAsDataURL(blob);
+                        event.preventDefault();
+                        break;
+                    }
+                }
+            }
+        },
+        removeScreenshot(index) {
+            if (this.threat.mitigationScreenshots) {
+                this.threat.mitigationScreenshots.splice(index, 1);
+            }
         },
         async confirmDelete() {
             const confirmed = await this.$bvModal.msgBoxConfirm(this.$t('threats.confirmDeleteMessage'), {
@@ -363,3 +466,59 @@ export default {
 };
 
 </script>
+
+<style scoped>
+.screenshot-upload-area {
+    margin-bottom: 1rem;
+}
+
+.screenshot-instructions {
+    padding: 0.75rem;
+    background-color: #e7f3ff;
+    border-left: 3px solid #2196F3;
+    border-radius: 0.25rem;
+}
+
+.screenshots-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.screenshot-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.screenshot-wrapper {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+
+.screenshot-thumbnail {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.screenshot-info {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.screenshot-info small {
+    word-break: break-word;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+}
+</style>
