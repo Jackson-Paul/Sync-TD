@@ -310,6 +310,7 @@ const eng = {
     forms: {
         apply: 'Apply',
         cancel: 'Cancel',
+        clear: 'Clear',
         close: 'Close',
         closeModel: 'Close Model',
         delete: 'Delete',
@@ -403,6 +404,9 @@ const eng = {
         properties: {
             description: 'Description',
             mitigation: 'Mitigations',
+            mitigationScreenshot: 'Mitigation Screenshots',
+            screenshotInstructions: 'Paste screenshot here (Ctrl+V or Cmd+V after taking screenshot or cropping image)',
+            noScreenshots: 'No screenshots added yet. Copy a screenshot and paste it here.',
             modelType: 'Model Type',
             number: 'Number',
             priority: 'Priority',

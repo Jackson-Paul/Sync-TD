@@ -9,41 +9,60 @@
         <p class="entity-description"><b>{{ $t('threatmodel.properties.urlMethod') }}: </b> {{ entity.data.method }} {{ entity.data.url }}</p>
         <p class="entity-description"><b>{{ $t('threatmodel.properties.urlParameters') }}: </b> {{ entity.data.parameters }}</p>
         <p class="entity-description" v-if="showProperties">{{ properties }}</p>
-        <table class="table">
-            <thead>
+        <div v-for="threat in threats" :key="threat.id" class="threat-box">
+            <div class="threat-number"><strong>#{{ threat.number }} - {{ threat.title }}</strong></div>
+            <table class="threat-details-table">
                 <tr>
-                    <th>{{ $t('threats.properties.number') }}</th>
-                    <th>{{ $t('threats.properties.title') }}</th>
                     <th>{{ $t('threats.properties.type') }}</th>
-                    <th>{{ $t('threats.properties.isai') }}</th>
-                    <th>{{ $t('threats.properties.testedOn') }}</th>
-                    <th>{{ $t('threats.properties.priority') }}</th>
-                    <th>{{ $t('threats.properties.status') }}</th>
-                    <th>{{ $t('threats.properties.score') }}</th>
-                    <th>{{ $t('threats.properties.description') }}</th>
-                    <th>{{ $t('threats.properties.ticketlink') }}</th>
-                    <th>{{ $t('threats.properties.mitigation') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr
-                    v-for="(threat, idx) in threats"
-                    :key="idx"
-                >
-                    <td>{{ threat.number }}</td>
-                    <td>{{ threat.title }}</td>
                     <td>{{ threat.type }}</td>
-                    <td>{{ threat.isai }}</td>
-                    <td>{{ formatDate(threat.testedOn) }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('threats.properties.priority') }}</th>
                     <td>{{ threat.severity }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('threats.properties.status') }}</th>
                     <td>{{ threat.status }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('threats.properties.score') }}</th>
                     <td>{{ threat.score }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('threats.properties.isai') }}</th>
+                    <td>{{ threat.isai }}</td>
+                </tr>
+                <tr v-if="threat.testedOn">
+                    <th>{{ $t('threats.properties.testedOn') }}</th>
+                    <td>{{ formatDate(threat.testedOn) }}</td>
+                </tr>
+                <tr v-if="threat.description">
+                    <th>{{ $t('threats.properties.description') }}</th>
                     <td>{{ threat.description }}</td>
-                    <td><a :href="threat.ticketlink" target="_blank" rel="noopener">{{ threat.ticketlink }}</a></td>
+                </tr>
+                <tr v-if="threat.mitigation">
+                    <th>{{ $t('threats.properties.mitigation') }}</th>
                     <td>{{ threat.mitigation }}</td>
                 </tr>
-            </tbody>
-        </table>
+                <tr v-if="threat.mitigationScreenshots && threat.mitigationScreenshots.length > 0">
+                    <th>{{ $t('threats.properties.mitigationScreenshot') }}</th>
+                    <td>
+                        <div class="screenshots-gallery">
+                            <img 
+                                v-for="(screenshot, idx) in threat.mitigationScreenshots" 
+                                :key="idx"
+                                :src="screenshot.data" 
+                                :alt="`Screenshot ${idx + 1} for threat ${threat.number}`" 
+                                class="mitigation-screenshot">
+                        </div>
+                    </td>
+                </tr>
+                <tr v-if="threat.ticketlink">
+                    <th>{{ $t('threats.properties.ticketlink') }}</th>
+                    <td><a :href="threat.ticketlink" target="_blank" rel="noopener">{{ threat.ticketlink }}</a></td>
+                </tr>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -64,6 +83,53 @@
 .entity-description {
     padding: 15px;
     white-space: pre-wrap;
+}
+
+.threat-box {
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+}
+
+.threat-number {
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-left: 4px solid #333;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.threat-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.threat-details-table th {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+    width: 150px;
+}
+
+.threat-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    word-break: break-word;
+}
+
+.screenshots-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.mitigation-screenshot {
+    max-width: 180px;
+    max-height: 140px;
+    border: 1px solid #ddd;
+    object-fit: contain;
 }
 </style>
 

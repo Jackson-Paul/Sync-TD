@@ -117,7 +117,9 @@ export const createNewTypedThreat = function (modelType, cellType,number) {
         modelType,
         new: true,
         number: number,
-        score: ''
+        score: '',
+        mitigationScreenshot: null,
+        screenshotFileName: ''
     };
 };
 
