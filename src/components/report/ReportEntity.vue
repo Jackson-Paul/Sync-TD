@@ -156,8 +156,8 @@
 }
 
 .mitigation-screenshot {
-    max-width: 200px;
-    max-height: 150px;
+    max-width: 450px;
+    max-height: 350px;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
     object-fit: contain;
