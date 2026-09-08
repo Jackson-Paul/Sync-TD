@@ -481,7 +481,7 @@ export default {
 
 .screenshots-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1rem;
 }
 
@@ -494,7 +494,7 @@ export default {
 
 .screenshot-wrapper {
     width: 100%;
-    height: 100px;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
