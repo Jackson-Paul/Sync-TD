@@ -62,6 +62,12 @@
     font-weight: 600;
 }
 
+.td-executive-summary-data ::v-deep .td-summary-true-findings td {
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: 600;
+}
+
 .td-missing-mitigations {
     margin-top: 16px;
 }
@@ -92,6 +98,7 @@ export default {
                 { name: this.$t('report.threatStats.notMitigated'), value: this.notMitigated },
                 { name: this.$t('report.threatStats.descriptionProvided'), value: this.descriptionProvided },
                 { name: this.$t('report.threatStats.mitigationProvided'), value: this.mitigationProvided },
+                { name: this.$t('report.threatStats.trueFindings'), value: this.trueFindings },
                 { name: this.$t('report.threatStats.openCritical'), value: this.openCritical },
                 { name: this.$t('report.threatStats.openHigh'), value: this.openHigh },
                 { name: this.$t('report.threatStats.openMedium'), value: this.openMedium },
@@ -118,6 +125,13 @@ export default {
         },
         mitigationProvided: function () {
             return this.threats.filter(threat => !!String(threat.mitigation || '').trim()).length;
+        },
+        trueFindings: function () {
+            return this.threats.filter(threat =>
+                threat.status &&
+                threat.status.toLowerCase() === 'open' &&
+                !!threat.testedOn
+            ).length;
         },
         missingMitigations: function () {
             return this.threatsWithReportNumbers.filter(threat => !String(threat.mitigation || '').trim());
@@ -183,6 +197,9 @@ export default {
                 this.$t('report.threatStats.descriptionProvided'),
                 this.$t('report.threatStats.mitigationProvided')
             ];
+            if (item.name === this.$t('report.threatStats.trueFindings') && item.value > 0) {
+                return 'td-summary-true-findings';
+            }
             return contentLabels.includes(item.name) && item.value < this.total
                 ? 'td-summary-mismatch'
                 : '';

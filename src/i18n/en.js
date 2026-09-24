@@ -451,6 +451,7 @@ const eng = {
             notMitigated: 'Not Mitigated',
             descriptionProvided: 'Description Provided',
             mitigationProvided: 'Mitigation Provided',
+            trueFindings: 'True Findings',
             missingMitigations: 'Missing Mitigations',
             missingDescriptions: 'Missing Descriptions',
             contentWarning: 'Content mismatch: {total} threats require {total} descriptions and {total} mitigations.',
