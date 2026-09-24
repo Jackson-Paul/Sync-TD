@@ -206,7 +206,7 @@ export default {
                 mitigated: true,
                 outOfScope: true,
                 empty: true,
-                properties: false,
+                properties: true,
                 branding: false
             },
             isElectron: isElectron()

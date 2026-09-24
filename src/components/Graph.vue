@@ -823,6 +823,9 @@ export default {
             if (history && history.batch) {
                 history.batch(() => {
                     importResult = threatImportService.importThreats(diagram, data);
+                    if (importResult.matched.length > 0) {
+                        this.graph.fromJSON(diagram);
+                    }
                     const updated = Object.assign({}, diagram);
                     updated.cells = [...this.graph.toJSON().cells];
                     this.$store.dispatch(tmActions.diagramModified, updated);
@@ -830,6 +833,9 @@ export default {
                 });
             } else {
                 importResult = threatImportService.importThreats(diagram, data);
+                if (importResult.matched.length > 0) {
+                    this.graph.fromJSON(diagram);
+                }
                 const updated = Object.assign({}, diagram);
                 updated.cells = [...this.graph.toJSON().cells];
                 this.$store.dispatch(tmActions.diagramModified, updated);
