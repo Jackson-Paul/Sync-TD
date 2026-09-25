@@ -38,6 +38,10 @@
                     <td :class="{ 'td-summary-mismatch': mitigationProvided < total }">{{ mitigationProvided }}</td>
                 </tr>
                 <tr>
+                    <th>{{ $t('report.threatStats.trueFindings') }}</th>
+                    <td class="td-summary-true-findings">{{ trueFindings }}</td>
+                </tr>
+                <tr>
                     <th>{{ $t('report.threatStats.openHigh') }}</th>
                     <td class="td-summary-open-high">{{ openHigh }}</td>
                 </tr>
@@ -95,6 +99,12 @@
     font-weight: 600;
 }
 
+.td-summary-true-findings {
+    color: #721c24;
+    background-color: #f8d7da !important;
+    font-weight: 600;
+}
+
 .td-missing-mitigations {
     margin-top: 16px;
 }
@@ -136,6 +146,13 @@ export default {
         },
         mitigationProvided: function () {
             return this.threats.filter(threat => !!String(threat.mitigation || '').trim()).length;
+        },
+        trueFindings: function () {
+            return this.threats.filter(threat =>
+                threat.status &&
+                threat.status.toLowerCase() === 'open' &&
+                !!threat.testedOn
+            ).length;
         },
         missingMitigations: function () {
             return this.threatsWithReportNumbers.filter(threat => !String(threat.mitigation || '').trim());

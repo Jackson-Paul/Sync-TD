@@ -9,12 +9,20 @@
         <p class="entity-description"><b>{{ $t('threatmodel.properties.urlMethod') }}: </b> {{ entity.data.method }} {{ entity.data.url }}</p>
         <p class="entity-description"><b>{{ $t('threatmodel.properties.urlParameters') }}: </b> {{ entity.data.parameters }}</p>
         <p class="entity-description" v-if="showProperties">{{ properties }}</p>
-        <div v-for="threat in threats" :key="threat.id" class="threat-box">
+        <div v-for="threat in threats" :key="threat.id" :class="['threat-box', { 'true-finding': isTrueFinding(threat) }, findingSeverityClass(threat)]">
             <div class="threat-number"><strong>#{{ threat.number }} - {{ threat.title }}</strong></div>
             <table class="threat-details-table">
                 <tr>
                     <th>{{ $t('threats.properties.type') }}</th>
                     <td>{{ threat.type }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('threatmodel.properties.urlMethod') }}</th>
+                    <td>{{ entity.data.method }} {{ entity.data.url }}</td>
+                </tr>
+                <tr>
+                    <th>{{ $t('threatmodel.properties.urlParameters') }}</th>
+                    <td>{{ entity.data.parameters }}</td>
                 </tr>
                 <tr>
                     <th>{{ $t('threats.properties.priority') }}</th>
@@ -90,12 +98,25 @@
     page-break-inside: avoid;
 }
 
+.threat-box.true-finding {
+    border: none;
+}
+
 .threat-number {
     padding: 10px;
     background-color: #f0f0f0;
     border-left: 4px solid #333;
     margin-bottom: 10px;
     font-size: 14px;
+}
+
+.threat-box.true-finding .threat-number {
+    font-weight: 700;
+}
+
+.threat-box.true-finding .threat-number {
+    background-color: #f5c2c7;
+    color: #721c24;
 }
 
 .threat-details-table {
@@ -217,6 +238,14 @@ export default {
         }
     },
     methods: {
+        isTrueFinding(threat) {
+            return !!threat && threat.status && threat.status.toLowerCase() === 'open' && !!threat.testedOn;
+        },
+        findingSeverityClass(threat) {
+            return this.isTrueFinding(threat) && threat.severity
+                ? `finding-severity-${threat.severity.toLowerCase()}`
+                : '';
+        },
         toCamelCase(str) {
             // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
             return str.replace(/(?:^\w|[A-Z]|\b\w)/g, (ltr, idx) => idx === 0 ? ltr.toLowerCase() : ltr.toUpperCase()).replace(/\s+/g, '');
